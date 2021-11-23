@@ -6,6 +6,33 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+:root{
+  --maincolor: #222831;
+  --textcolor: #EEEEEE;
+}
+
+html{
+  background-color: var(--maincolor);
+  font-size: 62.5%; 
+  scroll-behavior: smooth;
+  background-color:var(--maincolor);
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+  background-color: var(--maincolor);
+}
+::-webkit-scrollbar-thumb{
+  background-color: #4B5D67;
+  border-radius: 4px;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
