@@ -7,8 +7,10 @@
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&width=550&lines=I'm+FrontEnd+Developer+and+Mechatronic+Engineer;I've+never+stopped+learning)](https://git.io/typing-svg)
 
 
-<h1> Tools I work upon : 🛠</h1>
+### Tools I work upon : 🛠
+
 <p align="left">
+  <img src="https://img.shields.io/badge/-Firebase-FFA000?&style=for-the-badge&logo=firebase&logoColor=white"/>
   <img src="http://img.shields.io/badge/-VS%20Code-000000?style=for-the-badge&logo=Visual-studio-code&logoColor=blue"/> 
   <img src="https://img.shields.io/badge/-Github-181717?style=flat-square&logo=GitHub&logoColor=white"/>
   <img src="https://img.shields.io/badge/-NPM-CB3837?style=flat-square&logo=NPM&logoColor=white"/>
