@@ -2,8 +2,8 @@ import React from 'react';
 
 const NotFound = () => {
   return (
-    <div className="all">
-      Hifef
+    <div className="all" style={{color: 'white'}}>
+      Hola como estas no hay nada aqui
     </div>
   );
 };

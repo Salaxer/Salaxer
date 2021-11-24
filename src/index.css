@@ -14,15 +14,16 @@ body {
   -webkit-box-sizing: border-box;
 }
 :root{
-  --maincolor: #222831;
+  --maincolor: #1A1A1B;
   --textcolor: #EEEEEE;
+  --outlinecolor: #94F3E4;
+  --backgroundtext: #333F44;
 }
 
 html{
   background-color: var(--maincolor);
   font-size: 62.5%; 
   scroll-behavior: smooth;
-  background-color:var(--maincolor);
 }
 
 ::-webkit-scrollbar{

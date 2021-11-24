@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes , Route } from 'react-router-dom';
 
 import Layout from './components/Layout';
@@ -9,14 +9,14 @@ import NotFound from './pages/NotFound';
 function App() {
   return (
     <BrowserRouter>
-    <Layout>
-      <Routes>
-        <Route exact path="/" element={Home} />
-        <Route exact path="/woks" element={Works} />
-        <Route path="*" component={NotFound} />
-      </Routes>
-    </Layout>
-  </BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path='*' element={<NotFound />} />
+          <Route exact path="/" element={<Home/>} />
+          <Route exact path="/works" element={<Works/>} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   );
 }
 

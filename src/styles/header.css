@@ -1,6 +1,7 @@
 .Header{
-    height: 50px;
-    width: calc(100% - 60px);
+    height: 55px;
+    width: 100%;
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,8 +14,8 @@
 .navigate{
     display: flex;
     list-style: none;
-    justify-content: space-evenly;
-    width: 500px;
+    justify-content: space-between;
+    width: 350px;
     height: 100%;
 }
 .navigate li{
@@ -28,11 +29,22 @@
     transition: all 0.2s, ease;
     cursor: pointer;
 }
+.navigate a{
+    text-decoration: none;
+    outline: 1px solid #03c4a100;
+    transition: all 0.1s ease-in;
+    border-radius: 2px;
+}
+.navigate a:focus{
+    outline: 1px solid #03C4A1;
+}
+
 .navigate li:hover{
     border-bottom: 3px solid var(--textcolor);
 }
 .octicon-mark-github{
-    color: var(--textcolor);
+    fill: currentColor;
+    padding-right: 6px;
 }
 #checkNav{
     display: none;
