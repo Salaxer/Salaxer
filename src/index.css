@@ -35,7 +35,12 @@ html{
   background-color: var(--textcolor);
   border-radius: 4px;
 }
-
+.viewAll{
+  width: 100%;
+  margin-top: 70px;
+  position: relative;
+  z-index: 10;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

@@ -1,11 +1,10 @@
 import React from 'react';
+import '../styles/works.css'
 
 const Works = () => {
   return (
-    <div className="all" style={{color:'white'}}>
-      <p>
+    <div className="viewWorks" style={{color:'white'}}>
       Hiaediojkwef
-      </p>
     </div>
   );
 };
