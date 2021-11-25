@@ -27,15 +27,8 @@
     z-index: 100;
     position: relative;
     border-radius: 15px;
-    -webkit-filter: drop-shadow(0px 0px 1px var(--outlinecolor));
-    filter: drop-shadow(0px 0px 1px var(--outlinecolor));
-}
-
-.Name{
-    position: relative;
-    font-size: 2.8rem;
-    z-index: 1;
-    color: var(--textcolor)
+    -webkit-filter: drop-shadow(0px 0px 1px rgba(239, 254, 255, 0.7));
+    filter: drop-shadow(0px 0px 1.5px rgba(210, 236, 238, 0.871));
 }
 
 .backgroundForText::after, .backgroundForText::before{
@@ -55,8 +48,71 @@
     color: #FD367E;
     animation-delay: -4s;
 }
+.Name{
+    position: relative;
+    font-size: 2.8rem;
+    z-index: 1;
+    color: var(--textcolor)
+}
 .whoiam{
-    margin-top: 30px;
+    margin: 60px 0 30px 0;
+    font-size: 1.5rem;
+}
+.whoiam p{
+    margin: 10px;
+}
+.descriptionAboutMe{
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+}
+.descriptionAboutMe .wordProfile, .descriptionAboutMe .wordWork, .descriptionAboutMe .Hobbies, .descriptionAboutMe .Skills{
+    margin: 20px 0;
+    font-size: 2rem;
+    border-bottom: 3px solid var(--outlinecolor);
+}
+.wordProfile{
+    width: 65px;
+}
+.wordWork{
+    width: 160px;
+}
+.Hobbies{
+    width: 80px;
+}
+.Skills{
+    width: 50px;
+}
+.descriptionAboutMe .textForDescription{
+    padding-left: 30px;
+}
+.workDescription li{
+    font-size: bold;
+}
+.linkToWorks{
+    margin-bottom: 50px;
+    background-color: #FD367E;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3 ease-in;
+    width: 100px;
+    height: 40px;
+    outline: 1px solid #03C4A100;
+    transition: all 0.1s ease-in;
+}
+.linkToWorks a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 100px;
+    font-size: 2rem;
+    color: var(--textcolor);
+    text-decoration: none;
+}
+.linkToWorks:focus{
+    outline: 2px solid #03C4A1;
 }
 
 

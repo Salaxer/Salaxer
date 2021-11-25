@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import '../styles/header.css';
 // import MediaQuery from '../utils/MediaQuery';
 
@@ -27,8 +27,8 @@ const Header = () =>{
                 </svg>
             </label>
             <ul className="navigate" id="navigate">
-                <Link to="/"><li>About me</li></Link>
-                <Link to="/works"><li>Works</li></Link>
+                <NavLink to="/"><li>About me</li></NavLink>
+                <NavLink to="/works"><li>Works</li></NavLink>
                 <a href="https://github.com/Salaxer/Salaxer" target="_blank" rel="noopener noreferrer">
                     <li>     
                         <svg height="30" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true" className="octicon octicon-mark-github v-align-middle">

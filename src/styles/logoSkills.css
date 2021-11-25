@@ -1,0 +1,32 @@
+.ContainerSkills{
+    margin: 30px 0 30px 0;
+    width: 500px;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+}
+.logoContainer{
+    margin: 10px 0;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.logoContainer img, .logoContainer svg{
+    width: 50px;
+}
+.react{
+    color: inherit;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 20px;
+    color: #61dafb;
+}
+.MATLAB{
+    padding: 0;
+    margin-bottom: 0;
+    color: #fff;
+    font: normal 400 "Roboto",sans-serif;
+    letter-spacing: -.02em;
+    float: left;
+}
