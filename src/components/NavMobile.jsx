@@ -1,12 +1,12 @@
 import React, { useRef, useState} from "react";
-
+import { Navigation } from "./Navigation";
 import { MenuToggle } from "./MenuToggle";
 import { motion } from "framer-motion";
 import '../styles/navMobile.css'
 
 const sidebar = {
-    open: (height = 3000) => ({
-      clipPath: `circle(${500}px at  259px 31px)`,
+    open: () => ({
+      clipPath: `circle(130vh at  259px 31px)`,
       transition: {
         type: "spring",
         stiffness: 20,
@@ -14,7 +14,7 @@ const sidebar = {
       }
     }),
     closed: {
-      clipPath: "circle(20px at 259px 31px);",
+      clipPath: `circle(${20}px at  259px 31px)`,
       transition: {
         delay: 0.5,
         type: "spring",
@@ -39,6 +39,7 @@ const NavMobile = () =>{
       ref={containerRef}
       custom={""}
     >
+      <Navigation/>
       <motion.div className="backgroundNav" variants={sidebar} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>

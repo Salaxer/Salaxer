@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { MenuItem } from "./MenuItem";
 
@@ -11,12 +11,33 @@ const variants = {
   }
 };
 
-const itemIds = [0, 1, 2, 3, 4];
+const itemIds = [
+  {
+    path: '/',
+    name: 'About me',
+    a: false,
+  },
+  {
+    path: '/works',
+    name: 'Works',
+    a: false,
+  },
+  {
+    path: '/contact',
+    name: 'Contact me',
+    a: false,
+  },
+  {
+    path: 'https://github.com/Salaxer/Salaxer',
+    name: 'Source',
+    a: true,
+  }
+];
 
 export const Navigation = () => (
-  <motion.ul variants={variants}>
-    {itemIds.map(i => (
-      <MenuItem i={i} key={i} />
+  <motion.ul className="ulNavigation" variants={variants}>
+    {itemIds.map((item, index) => (
+      <MenuItem item={item} index={index} key={index} />
     ))}
   </motion.ul>
 );
