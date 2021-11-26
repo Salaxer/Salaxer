@@ -25,12 +25,13 @@ const sidebar = {
   };
 
 const NavMobile = () =>{
-    const [open, setOpen] = useState(false);
-    const containerRef = useRef(null);
-    console.log(open);
-    const toggleOpen = () =>{
-        setOpen(open ? false : true);
-    }
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef(null);
+  const toggleOpen = () =>{
+      setOpen(open ? false : true);
+  }
+
+
 
   return (
     <motion.nav
@@ -39,7 +40,7 @@ const NavMobile = () =>{
       ref={containerRef}
       custom={""}
     >
-      <Navigation/>
+        <Navigation open={open}/>
       <motion.div className="backgroundNav" variants={sidebar} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>

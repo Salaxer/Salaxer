@@ -49,7 +49,7 @@ const Home = () => {
         <div className="descriptionAboutMe">
           <h3 className="Skills">Skills</h3>
           <div className="textForDescription">
-            <h4>Me like FrontEnd Developer</h4>
+            <h4>Me like Software Developer</h4>
             <LogoSkillsFront/>
             <h4>Me like Mechatronic Engenieer</h4>
             <LogoSkillsMecha/>
@@ -61,7 +61,7 @@ const Home = () => {
           className="linkToWorks"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}>
-        <Link to="/works">My Works</Link>
+          <Link to="/works">My Works</Link>
         </motion.button>
         {/* <div className="descriptionAboutMe">
           <h3 className="Hobbies">Hobbies</h3>

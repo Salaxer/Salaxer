@@ -12,7 +12,7 @@ const Path = props => (
 );
 
 export const MenuToggle = ({ toggle }) => (
-  <button className="buttonNav" onClick={toggle}>
+  <button id="toggleNavar" className="buttonNav" onClick={toggle}>
     <svg width="23" height="23" viewBox="0 0 23 23">
       <Path 
         stroke="var(--textcolor)"
