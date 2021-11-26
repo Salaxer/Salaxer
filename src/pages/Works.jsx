@@ -1,10 +1,174 @@
-import React from 'react';
+import React from "react";
+import { useState } from "react";
+import { motion, AnimatePresence, useCycle } from "framer-motion";
+import { wrap } from "popmotion";
+import WorksDetails from '../components/WorksDetails'
+
 import '../styles/works.css'
 
+const images = [
+  {
+    name: `Restaurante Doña Martha`,
+    images: 'https://i.ibb.co/TrD28gb/menu-color.png',
+    imagesPrev: ['https://i.ibb.co/Kz9nj0p/Menu.png', 'https://i.ibb.co/SdwYMNv/item.png'],
+    description: 'A web page where the user can view the content of the menu, as well as the offers. additionally the user can register and thus be able to save their favorite food.',
+    url: '',
+  },
+  {
+    name: '100tifi.co',
+    images: 'https://i.ibb.co/Kz9nj0p/Menu.png',
+    imagesPrev: ['https://i.ibb.co/Kz9nj0p/Menu.png', 'https://i.ibb.co/SdwYMNv/item.png'],
+    description: 'API consumption from a Single Page Aplication',
+    url: 'https://salaxer.github.io/100tifi.co/',
+  },
+  {
+    name: 'Fingerprint',
+    images: 'https://i.ibb.co/S57jtkm/ssssmenu.png',
+    imagesPrev: ['https://i.ibb.co/5KJc00f/sssinicio.png', 'https://i.ibb.co/b24MBsc/ssssinicio-es.png'],
+    description: 'Telemonitoring of an IoT device which captures fingerprints, saves them in a real-time database and the results are displayed on a web page',
+    url: '',
+  },
+  {
+    name: 'Game Simon Say',
+    images: 'https://i.ibb.co/Bn2vw6P/eeeinicio.png',
+    imagesPrev: ['https://i.ibb.co/ZTH33vD/eeefail.png', 'https://i.ibb.co/M9ngRH0/eeeproccess.png'],
+    description: 'A very popular among us game in which you have to memorize the random steps that the machine does',
+    url: 'https://salaxer.github.io/',
+  }
+]
+
+const variants = {
+  enter: (direction) => {
+    return {
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0
+    };
+  },
+  enterShow: (direction) => {
+    return {
+      y: -120,
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0
+    };
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    y: 0,
+    opacity: 1,
+    scale: 1,
+  },
+  show:{
+    zIndex: 1,
+    y: -120,
+    x: 0,
+    opacity: 1,
+    scale: 0.7
+  },
+  exit: (direction) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  },
+  exitShow: (direction) => {
+    return {
+      y: -120,
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  }
+};
+
+/**
+ * Experimenting with distilling swipe offset and velocity into a single variable, so the
+ * less distance a user has swiped, the more velocity they need to register as a swipe.
+ * Should accomodate longer swipes and short flicks without having binary checks on
+ * just distance thresholds and velocity > 0.
+ */
+
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset, velocity) => {
+  return Math.abs(offset) * velocity;
+};
+
 const Works = () => {
+  const [[page, direction], setPage] = useState([0, 0]);
+  const [details, setDetails] = useCycle(false, true);
+  // We only have 3 images, but we paginate them absolutely (ie 1, 2, 3, 4, 5...) and
+  // then wrap that within 0-2 to find our image ID in the array below. By passing an
+  // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
+  // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
+  const imageIndex = wrap(0, images.length, page);
+  console.log(details);
+  const paginate = (newDirection) => {
+    setPage([page + newDirection, newDirection]);
+  };
+
   return (
-    <div className="viewWorks" style={{color:'white'}}>
-      Hiaediojkwef
+    <div className="viewWorks">
+      <div className="containerWorks">
+        <AnimatePresence initial={false} custom={direction}>
+            <motion.img
+              key={page}
+              src={images[imageIndex].images}
+              custom={direction}
+              variants={variants}
+              initial={details ? "enterShow" : "enter"}
+              animate={details ? "show" : "center"}
+              exit={details ? "exitShow" : "exit"}
+              className="imgForSlides"
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 }
+              }}
+              drag={"x"}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={1}
+              onDragEnd={(e, { offset, velocity }) => {
+                const swipe = swipePower(offset.x, velocity.x);
+
+                if (swipe < -swipeConfidenceThreshold) {
+                  paginate(1);
+                } else if (swipe > swipeConfidenceThreshold) {
+                  paginate(-1);
+                }
+              }}
+            />
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={setDetails}
+              className="linkToWorks buttonDetails"
+            >
+              {details ? <p>hide details</p> : <p>Show Details</p> }
+            </motion.button>
+        </AnimatePresence>
+        <AnimatePresence exitBeforeEnter >
+        {details ? <WorksDetails positi={imageIndex} data={images}/> : 
+          <motion.div
+            className="buttonsImg"
+            key="aa"
+            initial={{y: 20, opacity: 0}}
+            animate={{ y: 0, opacity: 1}}
+            transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
+            exit={{opacity: 0,  y: 20}}
+            >
+              <div 
+                className="next" onClick={() => paginate(1)}>
+                {"‣"}
+              </div>
+              <div
+              className="prev" onClick={() => paginate(-1)}>
+                {"‣"}
+              </div>
+          </motion.div>
+        }
+        </AnimatePresence>
+        
+      </div>
     </div>
   );
 };

@@ -14,12 +14,12 @@ const sidebar = {
       }
     }),
     closed: {
-      clipPath: `circle(${20}px at  259px 31px)`,
+      clipPath: `circle(20px at  259px 31px)`,
       transition: {
         delay: 0.5,
         type: "spring",
-        stiffness: 400,
-        damping: 40
+        stiffness: 250,
+        damping: 25
       }
     }
   };
