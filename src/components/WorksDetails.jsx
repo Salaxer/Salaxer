@@ -13,7 +13,7 @@ const WorksDetails = ({positi, data})=>{
             <div className="textDetail">
                 <h1 className="nameWork">{data[positi].name}</h1>
                 <p className="descriptionWork">{data[positi].description}</p>
-                <a className="descriptionWork" href={data[positi].url} target="_blank" rel="noopener noreferrer">Show</a>
+                {data[positi].url === '' ? null : <a className="descriptionWork" href={data[positi].url} target="_blank" rel="noopener noreferrer">Show</a>}
             </div>
             <div className="imageShow">
             {data[positi].imagesPrev.map((item, index)=>{

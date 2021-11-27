@@ -1,6 +1,6 @@
 .backgroundNav {
   position: fixed;
-  top: 0;
+  top: -3px;
   right: 0;
   bottom: 0;
   width: 300px;
@@ -13,7 +13,7 @@
   border: none;
   cursor: pointer;
   position: fixed;
-  top: 10px;
+  top: 7px;
   right: 16px;
   width: 50px;
   height: 50px;

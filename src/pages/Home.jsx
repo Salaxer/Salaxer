@@ -7,11 +7,13 @@ import LogoSkillsFront from '../components/LogoSkillsFront';
 import LogoSkillsMecha from '../components/LogoSkillsMecha';
 import LogoSkillsGene from '../components/LogoSkillsGene';
 
+import profile from '../assets/1637974948171.png';
+
 const Home = () => {
   return (
     <div className="viewUser" style={{color:"white"}}>
         <div className="containerImg">
-          <img src="https://en.gravatar.com/userimage/202274366/34a3b24ccb55cf2f1cfa1ee3298e1476.jpg?size=200" alt="hector salazar" />
+          <img src={profile} alt="hector salazar" />
         </div>
         <div className="personalInformation">
           <div className="backgroundForText">

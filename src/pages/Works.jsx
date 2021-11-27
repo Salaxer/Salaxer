@@ -9,10 +9,10 @@ import '../styles/works.css'
 const images = [
   {
     name: `Restaurante Doña Martha`,
-    images: 'https://i.ibb.co/TrD28gb/menu-color.png',
-    imagesPrev: ['https://i.ibb.co/Kz9nj0p/Menu.png', 'https://i.ibb.co/SdwYMNv/item.png'],
+    images: 'https://i.ibb.co/xfPzbsv/sign.png',
+    imagesPrev: ['https://i.ibb.co/d6j9W9S/me.png', 'https://i.ibb.co/p07ZSWJ/mobile.png'],
     description: 'A web page where the user can view the content of the menu, as well as the offers. additionally the user can register and thus be able to save their favorite food.',
-    url: '',
+    url: 'https://donamartha.com.mx/',
   },
   {
     name: '100tifi.co',
@@ -34,6 +34,27 @@ const images = [
     imagesPrev: ['https://i.ibb.co/ZTH33vD/eeefail.png', 'https://i.ibb.co/M9ngRH0/eeeproccess.png'],
     description: 'A very popular among us game in which you have to memorize the random steps that the machine does',
     url: 'https://salaxer.github.io/',
+  },
+  {
+    name: 'Platzi badges',
+    images: 'https://i.ibb.co/xhMq6qy/inicio.png',
+    imagesPrev: ['https://i.ibb.co/6r65Xxx/muestra.png', 'https://i.ibb.co/FDkYLJJ/muestra-mobi.png'],
+    description: 'platzi badges is a site in which people register their entry to an event, this is connected to an API which saves the information',
+    url: '',
+  },
+  {
+    name: 'Desing of automatic window',
+    images: 'https://i.ibb.co/s5dG6Tw/Ensamblaje-2-1.gif',
+    imagesPrev: ['https://i.ibb.co/Xt0Q4tV/1-1.png','https://i.ibb.co/wLGTKKh/2-1.png'],
+    description: 'Vehicle window design, this design only protrudes 25mm and can stay open up to 56%',
+    url: ''
+  },
+  {
+    name: 'prototype of a hoverboard',
+    images: 'https://i.ibb.co/CWMfhm5/1.png',
+    imagesPrev: ['https://i.ibb.co/R3JL8jX/2.png','https://i.ibb.co/cQNq19M/3.png'],
+    description: 'This is a design of a hoverboard prototype implementing PID control for the automatic balance of the wheels programmed in arduino.',
+    url: ''
   }
 ]
 
