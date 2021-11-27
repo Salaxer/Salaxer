@@ -31,11 +31,9 @@ const Home = () => {
         <div className="descriptionAboutMe">
           <h3 className="wordProfile">Profile</h3>
           <p className="textForDescription" style={{textAlign: 'justify'}}>
-            I am a Software Developer and currently studying the tenth quarter of Mechatronics engineering from Mexico with a passion 
-            for building digital and physical services/stuff. I always find the way to solving real-life 
-            problems with code and also my hands. I want colaborate with teams apassionated to created innovative products.
+            I am a Software Developer and currently studying the tenth quarter of Mechatronics engineering from Mexico with a passion for building digital and physical services/stuff. I always find the way to solving real-life problems with code and also my hands. I want collaborate with teams passionate to created innovative products.
             <br/>
-            I am improving day by day because i've never stopped learning.
+            I am improving day by day because I've never stopped learning.
           </p>
         </div>
         <div className="descriptionAboutMe">
