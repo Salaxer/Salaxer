@@ -56,9 +56,9 @@ const Home = () => {
         <div className="descriptionAboutMe">
           <h3 className="Skills">Skills</h3>
           <div className="textForDescription">
-            <h4>Me like Software Developer</h4>
+            <h4>Software Developer</h4>
             <LogoSkillsFront/>
-            <h4>Me like Mechatronic Engenieer</h4>
+            <h4>Mechatronic Engenieer</h4>
             <LogoSkillsMecha/>
             <h4>General Skills</h4>
             <LogoSkillsGene/>
