@@ -6,7 +6,7 @@ const Footer = () =>{
         <>
             <section className="Footer">
                 <p className="Footer__text">Desing by Salaxer with ❤</p>
-                <p className="Footer__text">Last Update on April 2022</p>
+                <p className="Footer__text">Last Update on June 2022</p>
             </section>
         </>
     )

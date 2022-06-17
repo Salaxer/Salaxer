@@ -7,11 +7,12 @@
     padding-top: 20px;
 }
 .containerImg{
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    padding-bottom: 1rem;
 }
 .containerImg img{
     width: 200px;
@@ -94,6 +95,7 @@
     padding-left: 30px;
 }
 .workDescription li{
+    padding-top: 1rem;
     font-size: bold;
 }
 .linkToWorks{
