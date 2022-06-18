@@ -120,7 +120,22 @@
     text-decoration: none;
 }
 .linkToWorks:focus{
-    outline: 2px solid #03C4A1;
+    outline: 2px solid var(--outlinecolor);
+}
+
+.item {
+    width: 56%;
+    overflow: visible;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+.cls-1{
+    fill:none;
+    stroke:#fff;
+    stroke-miterlimit:10;
+    stroke-width:9px;
 }
 
 @media only screen and (max-width: 600px) {

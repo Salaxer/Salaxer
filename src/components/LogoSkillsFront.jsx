@@ -7,42 +7,43 @@ const LogoSkillsFront = () =>{
     <>
         <div className="ContainerSkills">
             <div className="logoContainer">
-                <img style={{height: "44.45px"}} title="React" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" alt="React JS" />
-                <span className="react">React</span>
+                <img style={{height: "44.45px"}} title="React" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" alt="React JS." />
+                <span aria-hidden className="react">React</span>
             </div>
             <div className="logoContainer">
                 <img style={{width: "100px"}} title="Angular"
                     src="https://angular.io/assets/images/logos/angular/logo-nav@2x.png"
-                    alt="Angular" />
+                    alt="Angular." />
             </div>
             <div className="logoContainer">
                 <svg height="50" width="82" style={{
                     transform: "translateX(7%)",
                     shapeRendering: "auto",
                     width: "100px"
-                }} version="1.1" viewBox="0 0 148 90" xlink="http://www.w3.org/1999/xlink">
+                }} version="1.1" viewBox="0 0 148 90" xlink="http://www.w3.org/1999/xlink" aria-label="Next JS.">
+                    <title>Next JS</title>
                     <path d="M34.992 23.495h27.855v2.219H37.546v16.699h23.792v2.219H37.546v18.334h25.591v2.219H34.992v-41.69zm30.35 0h2.96l13.115 18.334 13.405-18.334L113.055.207 83.1 43.756l15.436 21.429H95.46L81.417 45.683 67.316 65.185h-3.018L79.85 43.756 65.343 23.495zm34.297 2.219v-2.219h31.742v2.219h-14.623v39.47h-2.554v-39.47H99.64zM.145 23.495h3.192l44.011 66.003L29.16 65.185 2.814 26.648l-.116 38.537H.145v-41.69zm130.98 38.801c-.523 0-.914-.405-.914-.928 0-.524.391-.929.913-.929.528 0 .913.405.913.929 0 .523-.385.928-.913.928zm2.508-2.443H135c.019.742.56 1.24 1.354 1.24.888 0 1.391-.535 1.391-1.539v-6.356h1.391v6.362c0 1.808-1.043 2.849-2.77 2.849-1.62 0-2.732-1.01-2.732-2.556zm7.322-.08h1.379c.118.853.95 1.395 2.149 1.395 1.117 0 1.937-.58 1.937-1.377 0-.685-.521-1.097-1.708-1.377l-1.155-.28c-1.62-.38-2.36-1.166-2.36-2.487 0-1.602 1.304-2.668 3.26-2.668 1.82 0 3.15 1.066 3.23 2.58h-1.354c-.13-.828-.85-1.346-1.894-1.346-1.1 0-1.832.53-1.832 1.34 0 .642.472 1.01 1.64 1.284l.987.243c1.838.43 2.596 1.178 2.596 2.53 0 1.72-1.33 2.799-3.453 2.799-1.987 0-3.323-1.029-3.422-2.637z" fill="white" fillRule="nonzero">
                     </path>
                 </svg>
             </div>
             <div className="logoContainer">
-                <svg style={{height: "50px"}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 630 630">
+                <svg style={{height: "50px"}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 630 630" aria-label="JavaScript.">
                     <title>JavaScript</title>
                     <rect width="630" height="630" fill="#f7df1e"/>
                     <path d="m423.2 492.19c12.69 20.72 29.2 35.95 58.4 35.95 24.53 0 40.2-12.26 40.2-29.2 0-20.3-16.1-27.49-43.1-39.3l-14.8-6.35c-42.72-18.2-71.1-41-71.1-89.2 0-44.4 33.83-78.2 86.7-78.2 37.64 0 64.7 13.1 84.2 47.4l-46.1 29.6c-10.15-18.2-21.1-25.37-38.1-25.37-17.34 0-28.33 11-28.33 25.37 0 17.76 11 24.95 36.4 35.95l14.8 6.34c50.3 21.57 78.7 43.56 78.7 93 0 53.3-41.87 82.5-98.1 82.5-54.98 0-90.5-26.2-107.88-60.54zm-209.13 5.13c9.3 16.5 17.76 30.45 38.1 30.45 19.45 0 31.72-7.61 31.72-37.2v-201.3h59.2v202.1c0 61.3-35.94 89.2-88.4 89.2-47.4 0-74.85-24.53-88.81-54.075z"/>
                 </svg>
-                <span>JavaScript</span>
+                <span aria-hidden>JavaScript</span>
             </div>
             <div className="logoContainer">
-                <svg style={{backgroundColor: "white", borderRadius: "0.4rem"}} height="50" width="50" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
+                <svg aria-label="TypeScript." style={{backgroundColor: "white", borderRadius: "0.4rem"}} height="50" width="50" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
                     <title>TypeScript</title>
                     <path clipRule="evenodd" d="m.98608 0h24.32332c.5446 0 .9861.436522.9861.975v24.05c0 .5385-.4415.975-.9861.975h-24.32332c-.544597 0-.98608-.4365-.98608-.975v-24.05c0-.538478.441483-.975.98608-.975zm13.63142 13.8324v-2.1324h-9.35841v2.1324h3.34111v9.4946h2.6598v-9.4946zm1.0604 9.2439c.4289.2162.9362.3784 1.5218.4865.5857.1081 1.2029.1622 1.8518.1622.6324 0 1.2331-.0595 1.8023-.1784.5691-.1189 1.0681-.3149 1.497-.5879s.7685-.6297 1.0187-1.0703.3753-.9852.3753-1.6339c0-.4703-.0715-.8824-.2145-1.2365-.1429-.3541-.3491-.669-.6186-.9447-.2694-.2757-.5925-.523-.9692-.7419s-.8014-.4257-1.2743-.6203c-.3465-.1406-.6572-.2771-.9321-.4095-.275-.1324-.5087-.2676-.7011-.4054-.1925-.1379-.3409-.2838-.4454-.4379-.1045-.154-.1567-.3284-.1567-.523 0-.1784.0467-.3392.1402-.4824.0935-.1433.2254-.2663.3959-.369s.3794-.1824.6269-.2392c.2474-.0567.5224-.0851.8248-.0851.22 0 .4523.0162.697.0486.2447.0325.4908.0825.7382.15.2475.0676.4881.1527.7218.2555.2337.1027.4495.2216.6475.3567v-2.4244c-.4015-.1514-.84-.2636-1.3157-.3365-.4756-.073-1.0214-.1095-1.6373-.1095-.6268 0-1.2207.0662-1.7816.1987-.5609.1324-1.0544.3392-1.4806.6203s-.763.6392-1.0104 1.0743c-.2475.4352-.3712.9555-.3712 1.5609 0 .7731.2268 1.4326.6805 1.9785.4537.546 1.1424 1.0082 2.0662 1.3866.363.146.7011.2892 1.0146.4298.3134.1405.5842.2865.8124.4378.2282.1514.4083.3162.5403.4946s.198.3811.198.6082c0 .1676-.0413.323-.1238.4662-.0825.1433-.2076.2676-.3753.373s-.3766.1879-.6268.2473c-.2502.0595-.5431.0892-.8785.0892-.5719 0-1.1383-.0986-1.6992-.2959-.5608-.1973-1.0805-.4933-1.5589-.8879z" fill="#3178c6" fillRule="evenodd">
                     </path>
                 </svg>
-                <span>TypeScript</span>
+                <span aria-hidden>TypeScript</span>
             </div>
             <div className="logoContainer">
-                <svg style={{height: "70.56px"}} xmlns="http://www.w3.org/2000/svg"  viewBox="70 0 362.73401 511.99998" version="1.1">
+                <svg aria-label="HTML5." style={{height: "70.56px"}} xmlns="http://www.w3.org/2000/svg"  viewBox="70 0 362.73401 511.99998" version="1.1">
                     <title>HTML5</title>
                     <path fill="#EEEEEE" d="M108.4 0h23v22.8h21.2V0h23v69h-23V46h-21v23h-23.2M206 23h-20.3V0h63.7v23H229v46h-23M259.5 0h24.1l14.8 24.3L313.2 0h24.1v69h-23V34.8l-16.1 24.8l-16.1-24.8v34.2h-22.6M348.7 0h23v46.2h32.6V69h-55.6"/>
                     <path fill="#e44d26" d="M107.6 471l-33-370.4h362.8l-33 370.2L255.7 512"/>
@@ -52,7 +53,7 @@ const LogoSkillsFront = () =>{
                 </svg>
             </div>
             <div className="logoContainer">
-                <svg style={{height: "70.56px"}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 362.73401 511.99998" version="1.1">
+                <svg aria-label="CSS3." style={{height: "70.56px"}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 362.73401 511.99998" version="1.1">
                     <title>CSS3</title>
                     <g id="layer1" transform="translate(-193.633,-276.3622)">
                         <g id="g3013" transform="translate(119,276.3622)">
@@ -70,8 +71,8 @@ const LogoSkillsFront = () =>{
                 </svg>
             </div>
             <div className="logoContainer"  >
-                <svg style={{width: '100px', height: "61.23px"}} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 442.37 270.929">
-                    <title>node.js</title>
+                <svg aria-label="Node JS." style={{width: '100px', height: "61.23px"}} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 442.37 270.929">
+                    <title>Node JS</title>
                     <defs>
                         <linearGradient id="b" x1="-.348" x2="1.251" gradientTransform="rotate(116.114 53.1 202.97) scale(86.48)" gradientUnits="userSpaceOnUse">
                             <stop offset=".3" stopColor="#3e863d"/>
@@ -114,17 +115,17 @@ const LogoSkillsFront = () =>{
                 </svg>
             </div>
             <div className="logoContainer" style={{width: "110px"}}>
-                <img style={{width: "110px"}} src="https://www.python.org/static/img/python-logo.png" alt="Python" />
+                <img style={{width: "110px"}} title="Python" src="https://www.python.org/static/img/python-logo.png" alt="Python." />
             </div>
             <div className="logoContainer">
-                <img style={{height: "81.44px"}} title="Firebase" src="https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg?hl=es" alt="Firebase" />
+                <img style={{height: "81.44px"}} title="Firebase" src="https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg?hl=es" alt="Firebase." />
             </div>
             <div className="logoContainer" >
-                <img style={{width: "100px", height: "69.09px"}} title="MySQL" src="https://labs.mysql.com/common/logos/mysql-logo.svg?v2" alt="MySQL" />
+                <img style={{width: "100px", height: "69.09px"}} title="MySQL" src="https://labs.mysql.com/common/logos/mysql-logo.svg?v2" alt="MySQL." />
             </div>
             <div className="logoContainer">
-                <img style={{height: "50px"}} title="MongoDB" src="https://www.mongodb.com/assets/images/global/favicon.ico" fill="#EEEEEE" alt="Mongo db"/>
-                <span>MongoDB</span>
+                <img style={{height: "50px"}} title="MongoDB" src="https://www.mongodb.com/assets/images/global/favicon.ico" fill="#EEEEEE" alt="Mongo DB."/>
+                <span aria-hidden>MongoDB</span>
             </div>
         </div>
     </>

@@ -1,6 +1,5 @@
 .viewWorks{
     width: 100%;
-    background: #151515;
     overflow: hidden;
     padding: 0;
     margin: 0;
@@ -19,9 +18,7 @@
 }
 .containerDetails{
     position: relative;
-    bottom: -50px;
     width: 90%;
-    height: 400px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -60,6 +57,7 @@
     margin-bottom: 5px;
 }
 .imgForSlides {
+    cursor: grab;
     border-radius: 10px;
     top: calc(50% - 200px);
     position: absolute;

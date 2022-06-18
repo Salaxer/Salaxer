@@ -123,7 +123,6 @@ const Works = () => {
   // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
   // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
   const imageIndex = wrap(0, images.length, page);
-  console.log(details);
   const paginate = (newDirection) => {
     setPage([page + newDirection, newDirection]);
   };
@@ -133,6 +132,7 @@ const Works = () => {
       <div className="containerWorks">
         <AnimatePresence initial={false} custom={direction}>
             <motion.img
+              tabIndex={0}
               key={page}
               src={images[imageIndex].images}
               custom={direction}
@@ -148,7 +148,9 @@ const Works = () => {
               drag={"x"}
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={1}
+              onDrag={(e)=>e.target.style.cursor = 'grabbing'}
               onDragEnd={(e, { offset, velocity }) => {
+                e.target.style.cursor = 'grab'
                 const swipe = swipePower(offset.x, velocity.x);
 
                 if (swipe < -swipeConfidenceThreshold) {
@@ -157,6 +159,7 @@ const Works = () => {
                   paginate(-1);
                 }
               }}
+              alt={`web page with title: ${images[imageIndex].name}`}
             />
             <motion.button
               whileHover={{ scale: 1.1 }}
@@ -177,14 +180,18 @@ const Works = () => {
             transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
             exit={{opacity: 0,  y: 20}}
             >
-              <div 
-                className="next" onClick={() => paginate(1)}>
+              <button 
+                tabIndex={0}
+                aria-label="next work"
+                className="next"  onClick={() => paginate(1)}>
                 {"‣"}
-              </div>
-              <div
+              </button>
+              <button
+              tabIndex={0}
+              aria-label="previous work"
               className="prev" onClick={() => paginate(-1)}>
                 {"‣"}
-              </div>
+              </button>
           </motion.div>
         }
         </AnimatePresence>

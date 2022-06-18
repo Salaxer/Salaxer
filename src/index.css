@@ -17,8 +17,9 @@ body {
 :root{
   --maincolor: #1A1A1B;
   --textcolor: #EEEEEE;
-  --outlinecolor: #94F3E4;
+  --outlinecolor: #03C4A1;
   --backgroundtext: #2c2c2c;
+  --pinkColor: #fd367e;
 }
 
 html{
@@ -35,6 +36,9 @@ html{
   background-color: var(--textcolor);
   border-radius: 4px;
 }
+:focus{
+  outline: 0.2rem solid var(--outlinecolor);
+}
 .viewAll{
   width: 100%;
   margin-top: 70px;
@@ -44,5 +48,66 @@ html{
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.notifications,
+.notifications__item {
+  padding: 0;
+  margin: 0;
+}
+
+.notifications {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  justify-content: flex-end;
+}
+
+.notifications__item {
+  width: 300px;
+  background: var(--maincolor);
+  color: var(--textcolor);
+  border: 0.2rem var(--textcolor) solid;
+  margin: 10px;
+  flex: 0 0 100px;
+  position: relative;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
+.notifications__item h3{
+  font-size: 1.45rem;
+}
+.notifications__item p{
+  font-size: 1.2rem;
+}
+.notifications__item--close{
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: transparent;
+  color: var(--textcolor);
+  border: none;
+  border-radius: 0.5rem;
+  font-size: larger;
+  cursor: pointer;
+  outline: none;
+}
+.notifications__item--close circle,
+.notifications__item--close rect,
+.notifications__item--close line {
+  fill: transparent;
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
 }
 

@@ -79,9 +79,13 @@ const SocilaNetworks  = () =>{
             {networks.map((item, index)=>{
                 return(
                 <motion.a 
-                whileHover={{ scale: 1.3 }}
-                whileTap={{ scale: 1 }}
-                href={item.href} key={index} target="_blank" className="containerIcon" rel="noopener noreferrer">
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    whileFocus={{ scale: 0.9 }}
+                    href={item.href} key={index}
+                    target="_blank"
+                    className="containerIcon"
+                    rel="noopener noreferrer">
                     {item.icon}
                     <div className="textIco" >
                         {item.name}

@@ -1,5 +1,4 @@
 .ContainerSocialNetworks{
-    margin-top: 100px;
     height: 100px;
     width: 550px;
     display: grid;
@@ -13,6 +12,11 @@
     flex-direction: column;
     color: var(--textcolor);
     text-decoration: none;
+    outline-offset: 0.5rem;
+    border-radius: 0.5rem;
+}
+.containerIcon:focus{
+    outline: 2px solid var(--outlinecolor);
 }
 .containerIcon img, .containerIcon svg{
     width: 100%;
@@ -25,6 +29,7 @@
 
 @media only screen and (max-width: 600px) {
     .ContainerSocialNetworks{
+        height: fit-content;
         width: 300px;
         grid-template-columns: 33% 33% 33%;
     }
