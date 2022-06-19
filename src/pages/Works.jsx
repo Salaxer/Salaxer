@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence, useCycle } from "framer-motion";
 import { wrap } from "popmotion";
 import WorksDetails from '../components/WorksDetails'
+import { Helmet } from 'react-helmet-async';
 
 import '../styles/works.css'
 
@@ -11,7 +12,7 @@ const images = [
     name: `Restaurante Doña Martha`,
     images: 'https://i.ibb.co/xfPzbsv/sign.png',
     imagesPrev: ['https://i.ibb.co/d6j9W9S/me.png', 'https://i.ibb.co/p07ZSWJ/mobile.png'],
-    description: 'A web page where the user can view the content of the menu, as well as the offers. additionally the user can register and thus be able to save their favorite food.',
+    description: 'A web page where the user can view the content of the menu, as well as the offers. additionally the user can register and this be able to save their favorite food.',
     url: 'https://donamartha.com.mx/',
   },
   {
@@ -126,78 +127,90 @@ const Works = () => {
   const paginate = (newDirection) => {
     setPage([page + newDirection, newDirection]);
   };
-
+  // const meta = {
+  //   title: 'Salaxer | My Works',
+  //   description: 'You can see the works of Salaxer, with a slide of images',
+  // }
   return (
-    <div className="viewWorks">
-      <div className="containerWorks">
-        <AnimatePresence initial={false} custom={direction}>
-            <motion.img
-              tabIndex={0}
-              key={page}
-              src={images[imageIndex].images}
-              custom={direction}
-              variants={variants}
-              initial={details ? "enterShow" : "enter"}
-              animate={details ? "show" : "center"}
-              exit={details ? "exitShow" : "exit"}
-              className="imgForSlides"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 }
-              }}
-              drag={"x"}
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={1}
-              onDrag={(e)=>e.target.style.cursor = 'grabbing'}
-              onDragEnd={(e, { offset, velocity }) => {
-                e.target.style.cursor = 'grab'
-                const swipe = swipePower(offset.x, velocity.x);
-
-                if (swipe < -swipeConfidenceThreshold) {
-                  paginate(1);
-                } else if (swipe > swipeConfidenceThreshold) {
-                  paginate(-1);
-                }
-              }}
-              alt={`web page with title: ${images[imageIndex].name}`}
-            />
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={setDetails}
-              className="linkToWorks buttonDetails"
-            >
-              {details ? <p>hide details</p> : <p>Show Details</p> }
-            </motion.button>
-        </AnimatePresence>
-        <AnimatePresence exitBeforeEnter >
-        {details ? <WorksDetails positi={imageIndex} data={images}/> : 
-          <motion.div
-            className="buttonsImg"
-            key="aa"
-            initial={{y: 20, opacity: 0}}
-            animate={{ y: 0, opacity: 1}}
-            transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
-            exit={{opacity: 0,  y: 20}}
-            >
-              <button 
+      <div className="viewWorks">
+        <Helmet>
+          <title>Salaxer | My Works</title>
+          <meta name="description" content="You can see the works of Salaxer, with a slide of images"/>
+          <meta name="twitter:card" content="home"/>
+          <meta name="twitter:title" content="Salaxer | My Works"/>
+          <meta property="og:type" content="My Works"/> 
+          <meta property="og:description" content="I am a Software Developer and currently on certification process of Mechatronics engineering, You can see the works of Salaxer, with a slide of images"/>
+          <link rel="canonical" href="https://salaxer.com/"/>
+        </Helmet>
+        <div className="containerWorks">
+          <AnimatePresence initial={false} custom={direction}>
+              <motion.img
                 tabIndex={0}
-                aria-label="next work"
-                className="next"  onClick={() => paginate(1)}>
-                {"‣"}
-              </button>
-              <button
-              tabIndex={0}
-              aria-label="previous work"
-              className="prev" onClick={() => paginate(-1)}>
-                {"‣"}
-              </button>
-          </motion.div>
-        }
-        </AnimatePresence>
-        
+                key={page}
+                src={images[imageIndex].images}
+                custom={direction}
+                variants={variants}
+                initial={details ? "enterShow" : "enter"}
+                animate={details ? "show" : "center"}
+                exit={details ? "exitShow" : "exit"}
+                className="imgForSlides"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.2 }
+                }}
+                drag={"x"}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={1}
+                onDrag={(e)=>e.target.style.cursor = 'grabbing'}
+                onDragEnd={(e, { offset, velocity }) => {
+                  e.target.style.cursor = 'grab'
+                  const swipe = swipePower(offset.x, velocity.x);
+
+                  if (swipe < -swipeConfidenceThreshold) {
+                    paginate(1);
+                  } else if (swipe > swipeConfidenceThreshold) {
+                    paginate(-1);
+                  }
+                }}
+                alt={`web page with title: ${images[imageIndex].name}`}
+              />
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={setDetails}
+                className="linkToWorks buttonDetails"
+              >
+                {details ? <p>hide details</p> : <p>Show Details</p> }
+              </motion.button>
+          </AnimatePresence>
+          <AnimatePresence exitBeforeEnter >
+          {details ? <WorksDetails positi={imageIndex} data={images}/> : 
+            <motion.div
+              className="buttonsImg"
+              key="aa"
+              initial={{y: 20, opacity: 0}}
+              animate={{ y: 0, opacity: 1}}
+              transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
+              exit={{opacity: 0,  y: 20}}
+              >
+                <button 
+                  tabIndex={0}
+                  aria-label="next work"
+                  className="next"  onClick={() => paginate(1)}>
+                  {"‣"}
+                </button>
+                <button
+                tabIndex={0}
+                aria-label="previous work"
+                className="prev" onClick={() => paginate(-1)}>
+                  {"‣"}
+                </button>
+            </motion.div>
+          }
+          </AnimatePresence>
+          
+        </div>
       </div>
-    </div>
   );
 };
 

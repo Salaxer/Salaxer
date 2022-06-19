@@ -34,7 +34,7 @@ const networks = [
     },
     {
         name: 'Stackoverflow',
-        href: 'https://stackoverflow.com/story/salaxer',
+        href: 'https://stackoverflow.com/users/9939795/salaxer',
         icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" version="1.1">
         <title>Stackoverflow</title>
         <g id="Onboarding-and-Dashboard-Final-07.2020" stroke="none" strokeWidth="1" fill="none"fillRule="evenodd">

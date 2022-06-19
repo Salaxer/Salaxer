@@ -1,11 +1,13 @@
 import React from "react";
 import {motion } from "framer-motion";
+import MediaQuery from "../utils/MediaQuery";
 
 const WorksDetails = ({positi, data})=>{
+    const rest = MediaQuery();
     return(
         <motion.div
         key={positi}
-        initial={{ opacity: 0, y: 100 }}
+        initial={{ opacity: 0, y: rest === 'desktop' ? 100 : 200 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className="containerDetails"

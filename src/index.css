@@ -38,6 +38,7 @@ html{
 }
 :focus{
   outline: 0.2rem solid var(--outlinecolor);
+  border-radius: 0.2rem;
 }
 .viewAll{
   width: 100%;
@@ -59,11 +60,12 @@ code {
 .notifications {
   position: fixed;
   z-index: 100;
-  top: 0;
-  right: 0;
+  top: 1.5rem;
+  right: 1.5rem;
   display: flex;
   flex-direction: column;
   list-style: none;
+  gap: 1rem;
   justify-content: flex-end;
 }
 
@@ -72,14 +74,13 @@ code {
   background: var(--maincolor);
   color: var(--textcolor);
   border: 0.2rem var(--textcolor) solid;
-  margin: 10px;
   flex: 0 0 100px;
   position: relative;
   border-radius: 1rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 1rem;
+  padding: 0 1rem;
   gap: 1rem;
 }
 .notifications__item h3{

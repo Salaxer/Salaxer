@@ -4,6 +4,10 @@
     display: flex;
     justify-content: space-between;
     padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    backdrop-filter: blur(10px);
+    z-index: 100;
 }
 .Footer__text{
     color: white;

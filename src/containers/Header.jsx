@@ -20,8 +20,6 @@ const Header = () =>{
         }
     },[rest])
     
-    console.log(navi);
-
     const handleNav = (e) =>{
         setNavi(e.target.checked);
     } 
