@@ -4,38 +4,65 @@ import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 
 import SocilaNetworks from '../components/SocilaNetworks'
+import Loader from '../components/Loader';
 // GlobalState
 import NotificationContext from '../state/NotificationContext'
 
 import { add } from '../utils/array';
 import { getMessageForm } from '../utils/getMessage';
+import { app } from '../db/firebase';
+
+import { collection, addDoc, Timestamp } from "firebase/firestore"; 
+import { getFirestore } from "firebase/firestore";
+
 import '../styles/contact.css'
+
+const db = getFirestore(app);
+
+const sendMessage = async (email, message) =>{
+  const date = new Date();
+  let resolve, error;
+  try {
+     resolve = await addDoc(collection(db, "contactme"), {
+      email,
+      message,
+      date: Timestamp.fromDate(date),
+    });
+  } catch (e) {
+    error = e;
+  }
+  return {resolve, error};
+}
 
 const Contact = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [loader, setLoader] = useState(false);
   const contexNotification = useContext(NotificationContext);
   
-  const sendRequest = (e) =>{
-    e.preventDefault();
-    const [myMessage, error] = getMessageForm(email, message)
-    contexNotification.add(add(contexNotification.list, myMessage));
-    if (!error) {
-      setEmail("");
-      setMessage("");
+  const sendRequest = async (e) =>{
+    if (!loader){
+      e.preventDefault();
+      let [myMessage, error] = getMessageForm(email, message);
+      if (!error) {
+        setLoader(true);
+        let {resolve, error} = await sendMessage(email, message);
+        if (resolve) {
+          setEmail("");
+          setMessage("");
+          contexNotification.add(add(contexNotification.list, myMessage));
+          setLoader(false);
+        }else{
+          setLoader(false);
+          myMessage.title = "Error";
+          myMessage.message= error ? (error.message ? error.message : error) : "Unexpected error";
+          contexNotification.add(add(contexNotification.list, myMessage));
+        }
+      }else{
+        contexNotification.add(add(contexNotification.list, myMessage));
+      }
     }
   }
-  // const meta = {
-  //   title: 'Salaxer | Contact me',
-  //   description: 'Here you can follow me in all my social networks and if you like you can contact me.',
-  //   canonical: 'http://salaxer/logo512.png',
-  //   meta: {
-  //     charset: 'utf-8',
-  //     name: {
-  //       keywords: 'react,meta,document,html,tags'
-  //     },
-  //   }
-  // };
 
   return (
       <div className="viewContact" style={{color: 'white'}}>
@@ -77,7 +104,11 @@ const Contact = () => {
             className="buttonSend"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.9 }}>
+              {loader ? 
+              <Loader size="22px" background="transparent" position="relative" color="white"></Loader>
+              :
               <p>Send</p>
+              }
           </motion.button>
         </form>
       </div>

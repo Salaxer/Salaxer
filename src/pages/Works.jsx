@@ -56,8 +56,15 @@ const images = [
     imagesPrev: ['https://i.ibb.co/R3JL8jX/2.png','https://i.ibb.co/cQNq19M/3.png'],
     description: 'This is a design of a hoverboard prototype implementing PID control for the automatic balance of the wheels programmed in arduino.',
     url: ''
-  }
-]
+  },
+  {
+    name: 'NextJS Personal blog',
+    images: 'https://i.ibb.co/0Q7ksg8/vercel-Trueblog.png',
+    imagesPrev: ['https://i.ibb.co/Vvp5XZP/vercelshop.png', 'https://i.ibb.co/yRGKzsp/vercelblog.png', 'https://i.ibb.co/ZJQhZG7/vercelblogmobile.png'],
+    description: 'it was created for learning purpose, but also to show you how to create Static Site Generation for better performance',
+    url: 'https://nextjs-blog-30kk56f54-salaxer.vercel.app/',
+  },
+];
 
 const variants = {
   enter: (direction) => {
