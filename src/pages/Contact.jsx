@@ -10,58 +10,56 @@ import NotificationContext from '../state/NotificationContext'
 
 import { add } from '../utils/array';
 import { getMessageForm } from '../utils/getMessage';
-import { app } from '../db/firebase';
-
-import { collection, addDoc, Timestamp } from "firebase/firestore"; 
-import { getFirestore } from "firebase/firestore";
 
 import '../styles/contact.css'
 
-const db = getFirestore(app);
+import axios from 'axios';
 
-const sendMessage = async (email, message) =>{
-  const date = new Date();
+const sendMessage = async (email, message, name) =>{
   let resolve, error;
-  try {
-     resolve = await addDoc(collection(db, "contactme"), {
-      email,
-      message,
-      date: Timestamp.fromDate(date),
-    });
-  } catch (e) {
+  await axios.post('https://salaxer-back.herokuapp.com/',{
+    email,
+    message,
+    name,
+  }, {
+    headers: { Accept: 'application/json' }
+  }).then((res)=>{
+    console.log('axios', res);
+    resolve = res;
+  }).catch((e) =>{
+    console.error(e);
     error = e;
-  }
+  })
   return {resolve, error};
 }
 
 const Contact = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loader, setLoader] = useState(false);
   const contexNotification = useContext(NotificationContext);
   
   const sendRequest = async (e) =>{
-    if (!loader){
-      e.preventDefault();
-      let [myMessage, error] = getMessageForm(email, message);
-      if (!error) {
-        setLoader(true);
-        let {resolve, error} = await sendMessage(email, message);
-        if (resolve) {
-          setEmail("");
-          setMessage("");
-          contexNotification.add(add(contexNotification.list, myMessage));
-          setLoader(false);
-        }else{
-          setLoader(false);
-          myMessage.title = "Error";
-          myMessage.message= error ? (error.message ? error.message : error) : "Unexpected error";
-          contexNotification.add(add(contexNotification.list, myMessage));
-        }
-      }else{
-        contexNotification.add(add(contexNotification.list, myMessage));
-      }
+    e.preventDefault();
+    if (loader) return;
+    let [myMessage, err] = getMessageForm(email, message, name);
+    if (err) return contexNotification.add(add(contexNotification.list, myMessage)); 
+    setLoader(true);
+    // eslint-disable-next-line no-unused-vars
+    let {resolve, error} = await sendMessage(email, message, name);
+    if (error) {
+      setLoader(false);
+      myMessage.title = "Error";
+      myMessage.message= error.message ? error.message : "Unexpected error";
+      contexNotification.add(add(contexNotification.list, myMessage));
+      return 0;
     }
+    setLoader(false);
+    setEmail("");
+    setMessage("");
+    setName("");
+    contexNotification.add(add(contexNotification.list, myMessage));
   }
 
   return (
@@ -80,6 +78,15 @@ const Contact = () => {
         </div>
         <form className='form' action="">
           <h2 tabIndex={0} aria-label='Or leave your email'>Or leave your email</h2>
+          <label htmlFor="inputName"><h3>Name</h3></label>
+          <motion.input
+            id='inputName'
+            onChange={(e)=> setName(e.target.value)}
+            value={name}
+            className="inputName"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.9 }}>
+          </motion.input>
           <label htmlFor="inputEmail"><h3>Email</h3></label>
           <motion.input
             id='inputEmail'

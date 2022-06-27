@@ -30,9 +30,6 @@ const NavMobile = () =>{
   const toggleOpen = () =>{
       setOpen(open ? false : true);
   }
-
-
-
   return (
     <motion.nav
       initial={false}
@@ -40,7 +37,7 @@ const NavMobile = () =>{
       ref={containerRef}
       custom={""}
     >
-        <Navigation open={open}/>
+      <Navigation toggle={() => toggleOpen()} open={open}/>
       <motion.div className="backgroundNav" variants={sidebar} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>

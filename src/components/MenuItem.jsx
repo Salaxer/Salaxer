@@ -20,7 +20,7 @@ const variants = {
 };
 
 
-export const MenuItem = ({ item, index }) => {
+export const MenuItem = ({ item, index, toggle }) => {
   return (
     <>
       {item.a ?
@@ -46,6 +46,7 @@ export const MenuItem = ({ item, index }) => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           exit={{display: "none"}}
+          onClick={toggle}
           >
         <NavLink className="lia" to={item.path}>
           <p>{item.name}</p>

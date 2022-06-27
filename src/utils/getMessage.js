@@ -3,9 +3,18 @@ import { checkEmail, checkMessage } from "./regex"
  * 
  * @param {String} email 
  * @param {String} message 
+ * @param {String} name 
  * @returns {[{id: number, title: string, message: string, life: number}, boolean]}
  */
-export const getMessageForm = (email, message) =>{
+export const getMessageForm = (email, message, name) =>{
+    if(name.length<1){
+      return [{
+        id: Date.now(),
+        title: 'Error',
+        message: "Please insert a correct name",
+        life: 4000,
+      }, true]
+    }
     if(!checkEmail(email)){
       return [{
         id: Date.now(),

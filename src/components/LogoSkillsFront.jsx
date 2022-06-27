@@ -114,19 +114,19 @@ const LogoSkillsFront = () =>{
                     </g>
                 </svg>
             </div>
-            <div className="logoContainer" style={{width: "110px"}}>
+            {/* <div className="logoContainer" style={{width: "110px"}}>
                 <img style={{width: "110px"}} title="Python" src="https://www.python.org/static/img/python-logo.png" alt="Python." />
-            </div>
+            </div> */}
             <div className="logoContainer">
                 <img style={{height: "81.44px"}} title="Firebase" src="https://firebase.google.com/downloads/brand-guidelines/SVG/logo-vertical.svg?hl=es" alt="Firebase." />
             </div>
-            <div className="logoContainer" >
+            {/* <div className="logoContainer" >
                 <img style={{width: "100px", height: "69.09px"}} title="MySQL" src="https://labs.mysql.com/common/logos/mysql-logo.svg?v2" alt="MySQL." />
-            </div>
-            <div className="logoContainer">
+            </div> */}
+            {/* <div className="logoContainer">
                 <img style={{height: "50px"}} title="MongoDB" src="https://www.mongodb.com/assets/images/global/favicon.ico" fill="#EEEEEE" alt="Mongo DB."/>
                 <span aria-hidden>MongoDB</span>
-            </div>
+            </div> */}
         </div>
     </>
     )
