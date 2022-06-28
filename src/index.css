@@ -42,9 +42,11 @@ html{
 }
 .viewAll{
   width: 100%;
+  max-width: 100vw;
   margin-top: 70px;
   position: relative;
   z-index: 10;
+  overflow: hidden;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

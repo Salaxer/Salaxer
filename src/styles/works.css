@@ -3,35 +3,110 @@
     overflow: hidden;
     padding: 0;
     margin: 0;
+    position: relative;
+}
+.containerListWorks{
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 2rem;
+}
+.containerListWorks .cardWork{
+    width: 25rem;
+    height: 25rem;
+    overflow: hidden;
+    border: 0.2rem solid rgb(112, 112, 112);
+    border-radius: 0.5rem;
+    color: var(--textcolor);
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.cardWork__figure{
+    height: 17rem;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+.cardWork__figure--img{
+    object-position: center center;
+    object-fit: cover;
+    height: 100%;
+}
+@supports(object-fit: cover){
+    .cardWork__figure--img{
+        object-position: center center;
+        object-fit: cover;
+    }
+}
+.cardWork__description{
+    width: 100%;
+    padding: 1rem;
+    height: 8rem;
+}
+.cardWork__description--title{
+    padding-bottom: 0.5rem;
+}
+.cardWork__description--p{
+    font-size: small;
+    overflow: hidden;
+    position: relative;
+    mix-blend-mode: hard-light;
+    height: 100%;
+}
+.cardWork__description--p::after {
+    position: absolute;
+    content: "";
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom, transparent 0%, var(--maincolor) 50%);;
+    pointer-events: none;
+} 
+.containerWork{
+    margin-top: 5.5rem;
+    width: 100%;
+    height: calc(100vh - 8.5rem);
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+.containerWork__images{
+    position: relative;
+    height: inherit;
+    display: grid;
+    grid-template-rows: 75% 25%;
+    justify-items: center;
     align-items: center;
 }
-.containerWorks {
-  width: 100%;
-  height: 89vh;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-.containerDetails{
+.containerWork__images--template{
     position: relative;
-    width: 90%;
+    height: 100%;
+    width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: center;
 }
-.containerDetails .imageShow{
-    height: 120px;
-    max-width: 500px;
-    overflow: hidden;
+.imgForSlides {
+    position: absolute;
+    cursor: grab;
+    border-radius: 10px;
+    max-height: 100%;
+    max-width: 100%;
 }
-.textDetail{
-    width: 40%;
-    text-align: center;
-    margin-right: 30px;
+.imageShow{
+    height: 120px;
+    max-width: inherit;
+    overflow: hidden;
 }
 .imageShow img{
     height: 100%;
@@ -45,7 +120,19 @@
       object-fit: cover;
       object-position: center center;
     }
-  }
+}
+.containerDetails{
+    position: relative;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+}
+.textDetail{
+    text-align: center;
+}
 .nameWork{
     font-size: 2.8rem;
     color: var(--textcolor);
@@ -56,108 +143,39 @@
     color: var(--textcolor);
     margin-bottom: 5px;
 }
-.imgForSlides {
-    cursor: grab;
-    border-radius: 10px;
-    top: calc(50% - 200px);
-    position: absolute;
-    max-height: 400px;
-    max-width: 80vw;
-}
 .buttonDetails{
-    position: absolute;
-    bottom: -30px;
     color: var(--textcolor);
     font-size: 1.6rem;
     cursor: pointer;
     z-index: 400;
-}
-.buttonsImg{
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-}
-.next,
-.prev {
-  top: calc(50% - 20px);
-  position: absolute;
-  background: white;
-  border-radius: 30px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 18px;
-  z-index: 2;
-}
-
-.next {
-  right: 10px;
-}
-
-.prev {
-  left: 10px;
-  transform: scale(-1);
-}
-
-.refresh {
-  padding: 10px;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
-  width: 20px;
-  height: 20px;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+    margin: 2rem 0;
 }
 @media only screen and (max-width: 600px) {
-    .imgForSlides {
-        top: 20%;
-        position: absolute;
-        max-height: 550px;
-        max-width: 90vw;
+    .containerWork{
+        grid-template-columns: 1fr;
+        height: inherit;
     }
-    .next,
-    .prev {
-        top: 10vh;
+    .containerWork__images{
+        grid-template-rows: 1fr 1fr;
+        height: fit-content;
     }
-    .next {
-        right: 25%;
-    }
-    .prev {
-        left: 25%;
-    }
-    .buttonDetails{
-        bottom: 0px;
-    }
-    .containerDetails{
-        width: 95%;
-        top: -180px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .textDetail{
+    .containerWork__images--template{
         width: 100%;
-        margin-right: 0;
-        margin-bottom: 5px;
+        height: 18rem;
     }
-    .containerDetails .imageShow{
-        height: 100px;
-        width: 80%;
-        overflow: hidden;
+    .imageShow{
+        max-width: 100%;
         display: flex;
-        justify-content: center;
     }
-    .imageShow img{
-        max-width: 150px;
+    .containerListWorks .cardWork{
+        width: 95%;
+        height: 10rem;
+        overflow: hidden;
+        justify-content: center;
+        flex-direction: row;
+    }
+    .cardWork__figure{
+        height: 100%;
+        width: 85%;
     }
 }

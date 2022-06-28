@@ -2,11 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { motion, AnimatePresence, useCycle } from "framer-motion";
 import { wrap } from "popmotion";
+import WorksDetails from '../components/WorksDetails'
 import { Helmet } from 'react-helmet-async';
 
 import '../styles/works.css'
 
-const myWorks = [
+const images = [
   {
     name: `Restaurante Doña Martha`,
     images: 'https://i.ibb.co/xfPzbsv/sign.png',
@@ -68,50 +69,47 @@ const myWorks = [
 const variants = {
   enter: (direction) => {
     return {
-      y: 0,
       x: direction > 0 ? 1000 : -1000,
       opacity: 0
     };
   },
-  center:{
+  enterShow: (direction) => {
+    return {
+      y: -120,
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0
+    };
+  },
+  center: {
     zIndex: 1,
+    x: 0,
     y: 0,
+    opacity: 1,
+    scale: 1,
+  },
+  show:{
+    zIndex: 1,
+    y: -120,
     x: 0,
     opacity: 1,
     scale: 0.7
   },
   exit: (direction) => {
     return {
-      y: 0,
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  },
+  exitShow: (direction) => {
+    return {
+      y: -120,
       zIndex: 0,
       x: direction < 0 ? 1000 : -1000,
       opacity: 0,
     };
   }
 };
-
-const conteinerListW = {
-  animate:{
-    opacity: 1,
-    zIndex: 10,
-  },
-  hidde:{
-    opacity: 0,
-    zIndex: 1,
-  }
-}
-const conteinerDetailW = {
-  animate:{
-    opacity: 1,
-    scale: 1,
-    zIndex: 10,
-  },
-  hidde:{
-    opacity: 0,
-    scale: 1.4,
-    zIndex: 1,
-  }
-}
 
 /**
  * Experimenting with distilling swipe offset and velocity into a single variable, so the
@@ -132,17 +130,14 @@ const Works = () => {
   // then wrap that within 0-2 to find our image ID in the array below. By passing an
   // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
   // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
-  const imageIndex = wrap(0, myWorks.length, page);
+  const imageIndex = wrap(0, images.length, page);
   const paginate = (newDirection) => {
     setPage([page + newDirection, newDirection]);
   };
-
-  const showDetail = (i) =>{
-    console.log(i);
-    setPage([i, 0]);
-    setDetails();
-  }
-
+  // const meta = {
+  //   title: 'Salaxer | My Works',
+  //   description: 'You can see the works of Salaxer, with a slide of images',
+  // }
   return (
       <div className="viewWorks">
         <Helmet>
@@ -154,86 +149,74 @@ const Works = () => {
           <meta property="og:description" content="I am a Software Developer and currently on certification process of Mechatronics engineering, You can see the works of Salaxer, with a slide of images"/>
           <link rel="canonical" href="https://salaxer.com/"/>
         </Helmet>
-        <motion.section animate={!details ? "animate" : "hidde"} variants={conteinerListW} className="containerListWorks">
-          {myWorks.map((item, index)=>{
-            return(
-              <article tabIndex={0} className="cardWork" key={index} onClick={()=>showDetail(index)}>
-                <figure className="cardWork__figure">
-                  <img className="cardWork__figure--img" src={item.images} alt={`project from ${item.name}`} />
-                </figure>
-                <div className="cardWork__description">
-                  <h2 className="cardWork__description--title">{item.name}</h2>
-                  <p className="cardWork__description--p">{item.description}</p>
-                </div>
-              </article>
-            )
-          })}
-        </motion.section>
-        {/* when show the details */}
-        <motion.div animate={details ? "animate" : "hidde"} variants={conteinerDetailW} className="containerWork">
-          <div className="containerWork__images">
-            <div className="containerWork__images--template">
-              <AnimatePresence initial={false} custom={direction}>
-                <motion.img
-                  tabIndex={0}
-                  key={page}
-                  src={myWorks[imageIndex].images}
-                  custom={direction}
-                  variants={variants}
-                  initial={details ? "enter" : ""}
-                  animate="center"
-                  exit={details ? "exit" : ""}
-                  className="imgForSlides"
-                  transition={{
-                    x: { type: "spring", stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.2 }
-                  }}
-                  drag={"x"}
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={1}
-                  onDrag={(e)=>e.target.style.cursor = 'grabbing'}
-                  onDragEnd={(e, { offset, velocity }) => {
-                    e.target.style.cursor = 'grab'
-                    const swipe = swipePower(offset.x, velocity.x);
+        <div className="containerWorks">
+          <AnimatePresence initial={false} custom={direction}>
+              <motion.img
+                tabIndex={0}
+                key={page}
+                src={images[imageIndex].images}
+                custom={direction}
+                variants={variants}
+                initial={details ? "enterShow" : "enter"}
+                animate={details ? "show" : "center"}
+                exit={details ? "exitShow" : "exit"}
+                className="imgForSlides"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.2 }
+                }}
+                drag={"x"}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={1}
+                onDrag={(e)=>e.target.style.cursor = 'grabbing'}
+                onDragEnd={(e, { offset, velocity }) => {
+                  e.target.style.cursor = 'grab'
+                  const swipe = swipePower(offset.x, velocity.x);
 
-                    if (swipe < -swipeConfidenceThreshold) {
-                      paginate(1);
-                    } else if (swipe > swipeConfidenceThreshold) {
-                      paginate(-1);
-                    }
-                  }}
-                  alt={`web page with title: ${myWorks[imageIndex].name}`}
-                  title={`web page with title: ${myWorks[imageIndex].name}`}
-                />
-              </AnimatePresence>
-            </div>
-            <div className="imageShow">
-              {myWorks[imageIndex].imagesPrev.map((item, index)=>{
-                return(
-                  <img key={index} src={item} alt={`work number ${index}`} />
-                  )
-                })}
-            </div>
-          </div>
-          <div
-            className="containerDetails"
-            tabIndex={0}
-            >
-            <div className="textDetail">
-                <h1 className="nameWork">{myWorks[imageIndex].name}</h1>
-                <p className="descriptionWork">{myWorks[imageIndex].description}</p>
-                {myWorks[imageIndex].url === '' ? null : <a className="descriptionWork" href={myWorks[imageIndex].url} target="_blank" rel="noopener noreferrer">Show</a>}
-            </div>
-                <motion.button
+                  if (swipe < -swipeConfidenceThreshold) {
+                    paginate(1);
+                  } else if (swipe > swipeConfidenceThreshold) {
+                    paginate(-1);
+                  }
+                }}
+                alt={`web page with title: ${images[imageIndex].name}`}
+              />
+              <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={setDetails}
                 className="linkToWorks buttonDetails"
               >
-                Exit
+                {details ? <p>hide details</p> : <p>Show Details</p> }
               </motion.button>
-          </div>
-        </motion.div>
+          </AnimatePresence>
+          <AnimatePresence exitBeforeEnter >
+          {details ? <WorksDetails positi={imageIndex} data={images}/> : 
+            <motion.div
+              className="buttonsImg"
+              key="aa"
+              initial={{y: 20, opacity: 0}}
+              animate={{ y: 0, opacity: 1}}
+              transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
+              exit={{opacity: 0,  y: 20}}
+              >
+                <button 
+                  tabIndex={0}
+                  aria-label="next work"
+                  className="next"  onClick={() => paginate(1)}>
+                  {"‣"}
+                </button>
+                <button
+                tabIndex={0}
+                aria-label="previous work"
+                className="prev" onClick={() => paginate(-1)}>
+                  {"‣"}
+                </button>
+            </motion.div>
+          }
+          </AnimatePresence>
+          
+        </div>
       </div>
   );
 };

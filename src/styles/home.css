@@ -98,6 +98,10 @@
     padding-top: 1rem;
     font-size: bold;
 }
+/* .workDescription code{
+    font-style: italic;
+    color: rgb(172, 172, 172);
+} */
 .linkToWorks{
     margin-bottom: 50px;
     background-color: #FD367E;

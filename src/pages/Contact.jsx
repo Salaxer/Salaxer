@@ -17,14 +17,16 @@ import axios from 'axios';
 
 const sendMessage = async (email, message, name) =>{
   let resolve, error;
-  await axios.post('https://salaxer-back.herokuapp.com/',{
+  await axios.post('https://salaxer-back.herokuapp.com/contact',{
     email,
     message,
     name,
   }, {
-    headers: { Accept: 'application/json' }
+    headers: { 
+      Accept: 'application/json', 
+      withCredentials: true
+    }
   }).then((res)=>{
-    console.log('axios', res);
     resolve = res;
   }).catch((e) =>{
     console.error(e);

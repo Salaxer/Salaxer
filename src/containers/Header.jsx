@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from 'react';
+import { useEffect } from 'react';
+import { useRef } from 'react';
 
 import NavDesktop from '../components/NavDesktop'
 import NavMobile from '../components/NavMobile';
@@ -8,6 +10,8 @@ import MediaQuery from '../utils/MediaQuery';
 
 const Header = () =>{
     
+    const refHeader = useRef(null);
+
     const rest = MediaQuery();
 
     const [navi, setNavi] = useState(false);
@@ -19,21 +23,19 @@ const Header = () =>{
             setNavi(false)
         }
     },[rest])
-    
-    const handleNav = (e) =>{
-        setNavi(e.target.checked);
-    } 
+
+    useEffect(()=>{
+        const computed = window.getComputedStyle(refHeader.current).getPropertyValue("backdrop-filter");
+        if (computed) return;
+        if (!computed) {
+            refHeader.current.style.backgroundColor = "var(--maincolor)";
+        }
+    },[refHeader])
 
     return (
         <>
-            <nav className="Header">
+            <nav ref={refHeader} className="Header">
                 <h1 className="Logo">SALAXER</h1>
-                <label htmlFor="checkNav">
-                    <input type="checkbox" name="" id="checkNav" onClick={(e)=>{handleNav(e)}}/>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </label>
                 {navi ? null : <NavDesktop/>}
             </nav>
             {navi ? <NavMobile/> : null }
