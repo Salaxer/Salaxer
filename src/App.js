@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Works from './pages/Works';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
+import Console from './pages/Console';
+
 import NotificationContext from './state/NotificationContext'
 import Notification from './components/Notification';
 import {HelmetProvider } from 'react-helmet-async';
@@ -22,6 +24,10 @@ const pages = [
   {
     path: '/contact',
     element: Contact
+  },
+  {
+    path: '/console',
+    element: Console
   }
 ]
 

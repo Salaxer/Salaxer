@@ -17,7 +17,7 @@ import axios from 'axios';
 
 const sendMessage = async (email, message, name) =>{
   let resolve, error;
-  await axios.post('https://salaxer-back.herokuapp.com/contact',{
+  await axios.post('http://localhost:3002/contact/',{
     email,
     message,
     name,
