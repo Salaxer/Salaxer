@@ -17,7 +17,7 @@ import axios from 'axios';
 
 const sendMessage = async (email, message, name) =>{
   let resolve, error;
-  await axios.post('http://localhost:3002/contact/',{
+  await axios.post('https://salaxer-1cea4.uc.r.appspot.com/contact/',{
     email,
     message,
     name,
