@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet-async';
 
 import '../styles/works.css'
 import { getAllWorks } from "../api/theWorks.ts";
+import Loader from "../components/Loader";
 
 // const myWorks = [
 //   {
@@ -131,6 +132,7 @@ const Works = () => {
   const [myWorks, setMyWorks] = useState([])
   const [[page, direction], setPage] = useState([0, 0]);
   const [details, setDetails] = useCycle(false, true);
+  const [loader, setLoader] = useState(false);
   // We only have 3 images, but we paginate them absolutely (ie 1, 2, 3, 4, 5...) and
   // then wrap that within 0-2 to find our image ID in the array below. By passing an
   // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
@@ -146,9 +148,11 @@ const Works = () => {
   }
 
   useEffect(()=>{
+    setLoader(true);
     getAllWorks().then((res) =>{
       console.log(res.data);
       setMyWorks(res.data)
+      setLoader(false)
     })
   },[])
 
@@ -164,19 +168,21 @@ const Works = () => {
           <link rel="canonical" href="https://salaxer.com/"/>
         </Helmet>
         <motion.section animate={!details ? "animate" : "hidde"} variants={conteinerListW} className="containerListWorks">
-          {myWorks.map((item, index)=>{
-            return(
-              <article tabIndex={0} className="cardWork" key={index} onClick={()=>showDetail(index)}>
-                <figure className="cardWork__figure">
-                  <img className="cardWork__figure--img" src={item.images} alt={`project from ${item.name}`} />
-                </figure>
-                <div className="cardWork__description">
-                  <h2 className="cardWork__description--title">{item.name}</h2>
-                  <p className="cardWork__description--p">{item.description}</p>
-                </div>
-              </article>
-            )
-          })}
+          {loader ? <Loader size="50px" background="transparent" position="relative" color="white"/> :
+            myWorks.map((item, index)=>{
+              return(
+                <article tabIndex={0} className="cardWork" key={index} onClick={()=>showDetail(index)}>
+                  <figure className="cardWork__figure">
+                    <img className="cardWork__figure--img" src={item.images} alt={`project from ${item.name}`} />
+                  </figure>
+                  <div className="cardWork__description">
+                    <h2 className="cardWork__description--title">{item.name}</h2>
+                    <p className="cardWork__description--p">{item.description}</p>
+                  </div>
+                </article>
+              )
+            })
+          }
         </motion.section>
         {/* when show the details */}
         { myWorks.length > 0 &&
