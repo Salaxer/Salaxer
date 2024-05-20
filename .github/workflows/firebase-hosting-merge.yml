@@ -19,4 +19,4 @@ jobs:
           channelId: live
           projectId: salaxer-1cea4
         env:
-          URL_BACKEND: https://salaxer-1cea4.uc.r.appspot.com/
+          REACT_APP_URL_BACKEND: https://salaxer-1cea4.uc.r.appspot.com/

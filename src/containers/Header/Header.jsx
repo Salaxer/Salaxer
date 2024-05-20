@@ -35,7 +35,7 @@ const Header = () =>{
         <>
             <nav ref={refHeader} className="Header">
                 <figure className='figureLogo'>
-                    <img src={myLogo} alt="logo" height={45} width={45} srcset="" />
+                    <img src={myLogo} alt="logo" height={45} width={45} srcSet="" />
                     <h1 className="Logo">SALAXER</h1>
                 </figure>
                 {nav ? null : <NavDesktop/>}

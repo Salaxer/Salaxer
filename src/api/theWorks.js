@@ -1,11 +1,11 @@
 import axios from "axios"
-
-const URL_BACKEND =  process.env.URL_BACKEND || "http://localhost:3002/works";
+import URL_BACKEND from '../config';
 
 const getAllWorks = async() =>{
+    console.log(`${URL_BACKEND}/works`);
     let data= [];
     try {
-        const result = await axios.get(URL_BACKEND)
+        const result = await axios.get(`${URL_BACKEND}/works`)
         console.log(result);
         return { data: result.data, error: ""};
     } catch (error) {
