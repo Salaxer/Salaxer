@@ -10,6 +10,6 @@
     z-index: 100;
 }
 .Footer__text{
-    color: white;
+    color: var(--textColor);
     font-size: 1.2rem;
 }

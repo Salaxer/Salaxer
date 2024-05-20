@@ -1,0 +1,92 @@
+.backgroundNav {
+  position: fixed;
+  top: -3px;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  background: var(--backgroundText);
+  z-index: 100;
+}
+  
+.buttonNav {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  top: 7px;
+  right: 16px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: transparent;
+  z-index: 100;
+}
+  
+  .ulNavigation,
+  .liNavigation {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .ulNavigation {
+    padding: 25px;
+    position: fixed;
+    z-index: 500;
+    right: 40px;
+    top: 100px;
+    width: 230px;
+  }
+  .lia{
+    text-decoration: none;
+    outline: 1px solid #03c4a100;
+    transition: all 0.1s ease-in;
+    border-radius: 2px;
+  }
+  .liNavigation .lia{
+    color: var(--textColor);
+    font-size:2rem ;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .liNavigation {
+    list-style: none;
+    margin: 40px 0;
+  }
+  .liNavigation:first-child{
+    margin-top: 0;
+  }
+  
+  .icon-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    flex: 40px 0;
+    margin-right: 20px;
+  }
+  
+  .text-placeholder {
+    border-radius: 5px;
+    width: 200px;
+    height: 20px;
+    flex: 1;
+  }
+  
+  .refresh {
+    padding: 10px;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  

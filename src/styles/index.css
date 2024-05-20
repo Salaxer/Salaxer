@@ -1,0 +1,47 @@
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+:root{
+  --mainColor: #1A1A1B;
+  --textColor: #EEEEEE;
+  --outlineColor: #03C4A1;
+  --backgroundText: #2c2c2c;
+  --pinkColor: #fd367e;
+}
+
+html{
+  background-color: var(--mainColor);
+  font-size: 62.5%; 
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar{
+  width: 5px;
+  background-color: var(--mainColor);
+}
+::-webkit-scrollbar-thumb{
+  background-color: var(--textColor);
+  border-radius: 4px;
+}
+:focus{
+  outline: 0.2rem solid var(--outlineColor);
+  border-radius: 0.2rem;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

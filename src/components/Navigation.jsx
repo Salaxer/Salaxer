@@ -41,14 +41,10 @@ const itemIds = [
 ];
 
 export const Navigation = ({toggle}) => (
-  // <AnimatePresence>
-  //    {open && (
-      <motion.ul className="ulNavigation" variants={variants}
-      >
-        {itemIds.map((item, index) => (
-          <MenuItem toggle={toggle} item={item} index={index} key={index} />
-        ))}
-      </motion.ul>
-  //   )}
-  // </AnimatePresence>
+    <motion.ul className="ulNavigation" variants={variants}
+    >
+      {itemIds.map((item, index) => (
+        <MenuItem toggle={toggle} item={item} index={index} key={index} />
+      ))}
+    </motion.ul>
 );
