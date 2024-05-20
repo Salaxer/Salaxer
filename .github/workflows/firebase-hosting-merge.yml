@@ -18,3 +18,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SALAXER_1CEA4 }}'
           channelId: live
           projectId: salaxer-1cea4
+        env:
+          URL_BACKEND: https://salaxer-1cea4.uc.r.appspot.com/
