@@ -86,7 +86,7 @@ const Chat = () => {
         <div className="container" style={{color: 'white'}}>
             <div className="terminal" ref={terminalRef}>
                 {messages.map((msg, index) => (
-                    <pre key={index} style={{ color: (user == msg.sender ? "#40ff40" : "#ff6e6e")}}> <strong>{msg.sender}</strong>: {msg.content}</pre>
+                    <pre key={index} style={{ color: (user === msg.sender ? "#40ff40" : "#ff6e6e")}}> <strong>{msg.sender}</strong>: {msg.content}</pre>
                 ))}
                 <section className='inputContainer'>
                     {auth ? 
