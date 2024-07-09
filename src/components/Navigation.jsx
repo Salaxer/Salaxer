@@ -37,6 +37,10 @@ const itemIds = [
     path: 'https://github.com/Salaxer/Salaxer',
     name: 'Source',
     a: true,
+  },
+  {
+    path: '/chat',
+    name: 'Chat me'
   }
 ];
 

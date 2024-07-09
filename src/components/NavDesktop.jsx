@@ -15,6 +15,7 @@ const NavDesktop = () =>{
                     </svg>Source
                 </li>
             </a>
+            <NavLink to="/chat"><li>Chat me</li></NavLink>
         </ul>
     )
 }

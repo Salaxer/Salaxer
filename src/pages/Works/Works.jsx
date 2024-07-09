@@ -20,7 +20,7 @@ import { Loader } from "../../components";
 //     name: '100tifi.co',
 //     images: 'https://i.ibb.co/Kz9nj0p/Menu.png',
 //     imagesPrev: ['https://i.ibb.co/Kz9nj0p/Menu.png', 'https://i.ibb.co/SdwYMNv/item.png'],
-//     description: 'API consumption from a Single Page Aplication',
+//     description: 'API consumption from a Single Page Application',
 //     url: 'https://salaxer.github.io/100tifi.co/',
 //   },
 //   {
