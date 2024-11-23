@@ -4,6 +4,7 @@ import NavMobile from "./NavMobile/NavMobile";
 import SocialNetworks from "./SocialNetwork/SocialNetworks";
 import LogoSkillsFront from './LogoSkills/LogoSkillsFront'
 import LogoSkillsMecha from './LogoSkills/LogoSkillsMecha'
+import TextareaAutoSize from "./AutosizeTextArea/AutosizeTextArea";
 
 export {
     Notification,
@@ -11,5 +12,6 @@ export {
     NavMobile,
     SocialNetworks,
     LogoSkillsFront,
-    LogoSkillsMecha
+    LogoSkillsMecha,
+    TextareaAutoSize
 }

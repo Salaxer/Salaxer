@@ -1,5 +1,5 @@
 .container{
-    width: 100%;
+    width: 100vw;
     display: flex;
     justify-content: center;
 }
@@ -8,14 +8,15 @@
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     position: relative;
     font-size: 12px;
-    width: 80vw;
-    max-width: 85%;
+    width: 95vw;
     border-radius: 6px;
-    padding-top: 45px;
+    padding: 45px 0 40px 0;
     margin-top: 8px;
     max-height: 80vh;
-    overflow-y: auto;
     background-color: rgb(15, 15, 16);
+    overflow-y: scroll;
+    display: grid;
+    flex-direction: column;
   }
   .terminal::-webkit-scrollbar {
     width: 8px;
@@ -42,9 +43,47 @@
   
   .terminal pre {
     font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-    color: white;
-    padding: 0 1rem 1rem;
-    margin: 0;
+    position: relative;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    width: max-content;
+    max-width: calc(85% - 25px);
+    word-wrap: break-word;          /* Ajuste de palabras */
+    overflow-wrap: break-word;      /* Ajuste de palabras (compatibilidad) */
+    border-radius:5px;
+    background-color: #505050;
+    z-index: 10;
+    white-space: 'pre-wrap'
+  }
+  .terminal pre.to{
+    justify-self: start;
+    color: #e7e7e7;
+    left: 30px;
+  }
+  .terminal pre.from{
+    justify-self: end;
+    color: #40ff40;
+    right: 30px;
+  }
+  .terminal pre.from::before{
+    right: -7px;
+    transform: rotateZ(298deg);     
+  }
+  .terminal pre.to::before{
+    transform: rotateZ(60deg);     
+    left: -7px;                     /* Ajustar para posicionar horizontalmente */
+  }
+  
+  .terminal pre::before {
+    top: -6px;                       /* Ajustar para posicionar verticalmente */
+    z-index: 9;
+    content: '';                     /* Necesario para mostrar el pseudo-elemento */
+    position: absolute;              /* Posicionamiento absoluto relativo a la caja */
+    background-color: #505050;          /* Color de fondo del pseudo-elemento */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    clip-path: path('M 10 2 Q 11 6 20 20 Q 10 12.5 0 20 Q 7.5 7.5 10 0 Z');
   }
   
   .circle-link {
@@ -70,12 +109,8 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
     gap: 1rem;
+    padding: 15px 0 0 0;
     justify-content: center;
     align-items: center;
-  }
-  pre{
-    display: flex;
-    flex-wrap: wrap;
   }

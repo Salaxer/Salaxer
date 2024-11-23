@@ -2,6 +2,7 @@ import mqtt from 'mqtt';
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import './chat.css'
+import { TextareaAutoSize } from '../../components';
 
 const Chat = () => {
 
@@ -66,7 +67,6 @@ const Chat = () => {
             const messageString = JSON.stringify(messageObject);
             client.publish('tu/tema', messageString, (err) => {
                 if (!err) {
-                    console.log('Mensaje enviado:', newMessage);
                     setNewMessage(''); // Limpia el campo después de enviar el mensaje
                 } else {
                     console.error('Error al enviar el mensaje:', err);
@@ -75,38 +75,28 @@ const Chat = () => {
         }
     };
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            handleSendMessage();
-        }
-    };
-
 
     return (
         <div className="container" style={{color: 'white'}}>
             <div className="terminal" ref={terminalRef}>
-                {messages.map((msg, index) => (
-                    <pre key={index} style={{ color: (user === msg.sender ? "#40ff40" : "#ff6e6e")}}> <strong>{msg.sender}</strong>: {msg.content}</pre>
-                ))}
+                {messages.map((msg, index) => {
+                    console.log(msg);
+                    return <pre key={index} 
+                    className={user === msg.sender ? "from" : "to"}>{msg.content}</pre>
+                })}
                 <section className='inputContainer'>
                     {auth ? 
-                    <motion.input
-                        id='inputEmail'
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        value={newMessage}
-                        onKeyDown={handleKeyDown}
-                        className="inputEmail"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        placeholder={"Type your message"}>
-                    </motion.input>
+                    <TextareaAutoSize 
+                    EnterDown={handleSendMessage} 
+                    onChange={(t) => setNewMessage(t)}
+                    value={newMessage}>
+                    </TextareaAutoSize>
                     :
                     <>
                         <motion.input
-                            id='inputEmail'
+                            id='inputNme'
                             onChange={(e) => setUser(e.target.value)}
                             value={user}
-                            onKeyDown={handleKeyDown}
                             className="inputEmail"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
