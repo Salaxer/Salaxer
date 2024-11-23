@@ -6,7 +6,7 @@ import NotificationContext from './state/NotificationContext.jsx'
 import { HelmetProvider } from 'react-helmet-async';
 import { Notification } from './components';
 
-import { Contact, Home, Works, NotFound, Chat } from './pages'
+import { Contact, Works, NotFound, Chat } from './pages'
 import { Layout } from './containers'
 
 const pages = [
