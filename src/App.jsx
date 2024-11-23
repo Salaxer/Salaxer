@@ -10,10 +10,10 @@ import { Contact, Home, Works, NotFound, Chat } from './pages'
 import { Layout } from './containers'
 
 const pages = [
-  {
-    path: '/',
-    element: Home,
-  },
+  // {
+  //   path: '/',
+  //   element: Home,
+  // },
   {
     path: '/works',
     element: Works,

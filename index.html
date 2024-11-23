@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triángulo con Puntas Redondas</title>
+    <style>
+        .box {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            background-color: lightblue;
+            margin: 50px;
+        }
+
+        .box::before {
+            content: '';
+            position: absolute;
+            background-color: lightblue;
+            top: 10px;
+            left: -20px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+</html>
