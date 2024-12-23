@@ -5,13 +5,15 @@
   justify-content: end;
   flex-direction: column;
   max-width: 900px;
+  font-weight: 400;
+  font-style: normal;
+  font-family:  Consolas, Liberation Mono, Menlo, monospace;
 }
 .messages {
   width: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  align-items: center;
 }
 .messages .inputEmail{
   margin: 10px 0 10px 0;
@@ -26,29 +28,16 @@
   border-radius: 5px;
   padding: 0.5rem 1rem;
   max-width: 80%; /* o calc(85% - 25px), según tu preferencia */
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   width: fit-content;
 }
-pre {
-  font-size: x-small;
-  position: relative;
-  /* Para forzar salto de línea cuando se exceda la max-width */
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-pre a{
-  text-decoration: none;
-  color: cyan;
-}
-.message.to{
-  color: #e7e7e7;
+.message.to, .message.to .username{
+  color: #46C154;
   left: 30px;
   align-items: start;
 }
-.message.from{
+.message.from, .message.from .username{
   align-self: end;
-  color: #40ff40;
+  color: #a4eef9;
   right: 30px;
 }
 .message.from::before{
@@ -71,10 +60,12 @@ pre a{
   clip-path: path('M 10 2 Q 11 6 20 20 Q 10 12.5 0 20 Q 7.5 7.5 10 0 Z');
 }
 .message .datetime{
-  color: #a6a6a6;
+  color: #e2e2e2;
   font-size: xx-small;
   align-self: end;
+  padding-top: 0.1rem;
 }
+
 
 .input {
   width: 100%;

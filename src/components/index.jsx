@@ -5,6 +5,7 @@ import SocialNetworks from "./SocialNetwork/SocialNetworks";
 import LogoSkillsFront from './LogoSkills/LogoSkillsFront'
 import LogoSkillsMecha from './LogoSkills/LogoSkillsMecha'
 import TextareaAutoSize from "./AutosizeTextArea/AutosizeTextArea";
+import MessageUI from "./MessageUI/MessageUI";
 
 export {
     Notification,
@@ -13,5 +14,6 @@ export {
     SocialNetworks,
     LogoSkillsFront,
     LogoSkillsMecha,
-    TextareaAutoSize
+    TextareaAutoSize,
+    MessageUI
 }

@@ -2,9 +2,8 @@ import mqtt from 'mqtt';
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import './chat.css'
-import { TextareaAutoSize } from '../../components';
+import { MessageUI, TextareaAutoSize } from '../../components';
 import { useNavigate } from 'react-router-dom';
-import detectarYEnlazar from '../../utils/detectHyperlinlks'
 import { getPassword } from '../../api/mqtt';
 
 const Chat = () => {
@@ -24,7 +23,7 @@ const Chat = () => {
     const getMQTTPassword = async () => {
         const { resolve } = await getPassword({password})
         if (resolve) {
-            setMessages([{...resolve.default}])
+            setMessages(resolve.messages)
             connectToMqtt(resolve.MQTT)
         }
     }
@@ -99,7 +98,6 @@ const Chat = () => {
         }
     };
 
-
     return (
         <div className="container" style={{color: 'white'}}>
             <section className='messages' ref={terminalRef}>
@@ -113,8 +111,9 @@ const Chat = () => {
                       };
                     const horaFormateada = fecha.toLocaleTimeString('es-ES', opciones);
                     return <div key={index} className={`message ${user === msg.sender ? "from" : "to"}`} >
-                        <pre dangerouslySetInnerHTML={{ __html: detectarYEnlazar(msg.content) }}></pre>
-                        <span className='datetime'>{horaFormateada}</span>
+                        <p className='username'>{msg.sender}</p>
+                        <MessageUI text={msg.content}></MessageUI>
+                        <p className='datetime'>{horaFormateada}</p>
                     </div>
                 }) : 
                 <>

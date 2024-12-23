@@ -47,7 +47,7 @@ const Home = () => {
           <div className="personalInformation">
             <div className="backgroundForText">
               <h1 className="Name" tabIndex={0} aria-label="portfolio's name: Hector Miguel Salazar Doroteo">
-                Hector Miguel Salazar Doroteo
+                Hector Salazar
               </h1>
             </div>
             <div className="whoIam" tabIndex={0} aria-label='Principal Description: Welcome to my webpage, Im a Software Developer'>

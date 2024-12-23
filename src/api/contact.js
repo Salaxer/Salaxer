@@ -4,7 +4,7 @@ import URL_BACKEND from '../config';
 const sendMessage = async (email, message, name) =>{
   let resolve, error;
   await axios.post(`${URL_BACKEND}/contact`,{
-    email,
+    email: "salaxerd@gmail.com",
     message,
     name,
   }, {

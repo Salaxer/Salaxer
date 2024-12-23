@@ -1,0 +1,31 @@
+.message-ui {
+    font-size: 1.5rem;
+    position: relative;
+    /* Para forzar salto de línea cuando se exceda la max-width */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    color: #f4f4f4;
+    font-family: 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    /* font-family:  SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace; */
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.message-ui .emoji {
+    font-family: 'Noto Color Emoji', sans-serif;
+    font-size: 1.8rem;
+    vertical-align: middle;
+}
+
+.message-ui a {
+    color: cyan;
+    text-decoration: none;
+}
+
+.message-ui a:hover {
+    text-decoration: underline;
+}
