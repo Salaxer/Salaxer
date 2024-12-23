@@ -1,7 +1,7 @@
 
 ### Hey, [Salaxer here! ](https://www.salaxer.com) <p> </p> <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="25px">
 
-<p>Hi, i'm Hector Miguel Salazar Doroteo, Frontend developer and mechatronics engineer 👨🏻‍💻 from M&eacute;xico </p>
+<p>Hi, i'm Salaxer, Frontend developer and mechatronics engineer 👨🏻‍💻 from M&eacute;xico </p>
 
 
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&width=550&lines=I'm+FrontEnd+Developer+and+Mechatronics+Engineer;I've+never+stopped+learning)](https://git.io/typing-svg)
