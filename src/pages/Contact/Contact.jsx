@@ -5,35 +5,11 @@ import { Helmet } from 'react-helmet-async';
 
 // GlobalState
 import NotificationContext from '../../state/NotificationContext'
-
 import { add } from '../../utils/array';
 import { getMessageForm } from '../../utils/getMessage';
-
 import './contact.css'
-
 import { Loader, SocialNetworks } from '../../components';
-
-import axios from 'axios';
-
-const sendMessage = async (email, message, name) =>{
-  let resolve, error;
-  await axios.post('https://salaxer-1cea4.uc.r.appspot.com/contact/',{
-    email,
-    message,
-    name,
-  }, {
-    headers: { 
-      Accept: 'application/json', 
-      withCredentials: true
-    }
-  }).then((res)=>{
-    resolve = res;
-  }).catch((e) =>{
-    console.error(e);
-    error = e;
-  })
-  return {resolve, error};
-}
+import { sendMessage } from '../../api/contact'
 
 const Contact = () => {
   const [name, setName] = useState("");

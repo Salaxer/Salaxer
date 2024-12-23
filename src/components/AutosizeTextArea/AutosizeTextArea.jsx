@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-
+import './AutoSizeTextArea.css'
 const TextareaAutoSize = (
     { 
         placeholder = "Type a message", 
@@ -38,7 +38,7 @@ const TextareaAutoSize = (
             id='inputText'
             value={value}
             onChange={(event) => {onChange(event.target.value)}}
-            className="inputEmail"
+            className="AutoSizeTextArea"
             onKeyDown={handleKeyDown}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

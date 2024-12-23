@@ -6,14 +6,14 @@ import NotificationContext from './state/NotificationContext.jsx'
 import { HelmetProvider } from 'react-helmet-async';
 import { Notification } from './components';
 
-import { Contact, Works, NotFound, Chat } from './pages'
+import { Contact, Works, NotFound, Chat, Love, Home } from './pages'
 import { Layout } from './containers'
 
 const pages = [
-  // {
-  //   path: '/',
-  //   element: Home,
-  // },
+  {
+    path: '/',
+    element: Home,
+  },
   {
     path: '/works',
     element: Works,
@@ -26,6 +26,10 @@ const pages = [
     path: '/chat',
     element: Chat
   },
+  {
+    path: '/iloveyou',
+    element: Love
+  }
 ]
 
 function App() {
@@ -60,6 +64,7 @@ function App() {
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
                       exit={{opacity: 0,  y: 20}}
+                      style={{ height: "calc(100vh - 70px)", width: "100%", paddingBottom: "3rem"}}
                     >
                       <item.element />
                     </motion.div>
