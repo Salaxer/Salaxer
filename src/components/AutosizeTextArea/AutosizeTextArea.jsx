@@ -40,8 +40,8 @@ const TextareaAutoSize = (
             onChange={(event) => {onChange(event.target.value)}}
             className="AutoSizeTextArea"
             onKeyDown={handleKeyDown}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
         >
         </motion.textarea>
     );

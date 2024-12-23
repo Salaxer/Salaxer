@@ -11,6 +11,11 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  align-items: center;
+}
+.messages .inputEmail{
+  margin: 10px 0 10px 0;
+  width: calc(100% - 20px);
 }
 .message{
   display: flex;  
@@ -27,8 +32,6 @@
 pre {
   font-size: x-small;
   position: relative;
-  /* Ajuste para que no ocupe todo el ancho */
-  display: flex;  
   /* Para forzar salto de línea cuando se exceda la max-width */
   white-space: pre-wrap;
   word-wrap: break-word;

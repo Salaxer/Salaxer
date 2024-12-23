@@ -23,7 +23,10 @@ const Chat = () => {
 
     const getMQTTPassword = async () => {
         const { resolve } = await getPassword({password})
-        connectToMqtt(resolve.MQTT)
+        if (resolve) {
+            setMessages([{...resolve.default}])
+            connectToMqtt(resolve.MQTT)
+        }
     }
 
     const connectToMqtt = (MQTT) =>{
@@ -68,7 +71,9 @@ const Chat = () => {
     }
 
     const scrollDown = () =>{
-        terminalRef.current.scrollTo(0, terminalRef.current.scrollHeight)
+        if (terminalRef.current) {
+            terminalRef.current.scrollTo(0, terminalRef.current.scrollHeight)
+        }
     }
 
     const handleSendMessage = () => {
@@ -98,7 +103,8 @@ const Chat = () => {
     return (
         <div className="container" style={{color: 'white'}}>
             <section className='messages' ref={terminalRef}>
-                {messages.map((msg, index) => {
+                
+                {auth ? messages.map((msg, index) => {
                     const fecha = new Date(msg.date)
                     const opciones = {
                         hour: '2-digit',
@@ -110,24 +116,15 @@ const Chat = () => {
                         <pre dangerouslySetInnerHTML={{ __html: detectarYEnlazar(msg.content) }}></pre>
                         <span className='datetime'>{horaFormateada}</span>
                     </div>
-                })}
-            </section>
-            <section className='input'>
-                {auth ? 
-                <TextareaAutoSize 
-                EnterDown={handleSendMessage} 
-                onChange={(t) => setNewMessage(t)}
-                value={newMessage}>
-                </TextareaAutoSize>
-                :
+                }) : 
                 <>
-                    <motion.input
+                     <motion.input
                         id='inputNme'
                         onChange={(e) => setUser(e.target.value)}
                         value={user}
                         className="inputEmail"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
                         placeholder={"Type your name"}>
                     </motion.input>
                     <motion.input
@@ -136,44 +133,53 @@ const Chat = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                         className="inputEmail"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
                         placeholder={ "Type your password"}>
                     </motion.input>
+                    <motion.button
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        onClick={getMQTTPassword}
+                        className="linkToWorks buttonDetails"
+                        >Connect</motion.button>
                 </>
                 }
-                { !auth ? 
-                <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={getMQTTPassword}
-                className="linkToWorks buttonDetails"
-                >Connect</motion.button>
-                : 
-                <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleSendMessage}
-                className="send"
-                >
-                    <svg 
-                        width="24" 
-                        height="24" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="2" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
+            </section>
+            <section className='input'>
+                {
+                auth &&
+                <>
+                    <TextareaAutoSize 
+                    EnterDown={handleSendMessage} 
+                    onChange={(t) => setNewMessage(t)}
+                    value={newMessage}>
+                    </TextareaAutoSize>
+                    <motion.button
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    onClick={handleSendMessage}
+                    className="send"
                     >
-                        <line x1="22" y1="2" x2="11" y2="13"></line>
-                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                    </svg> 
-                </motion.button>
+                        <svg 
+                            width="24" 
+                            height="24" 
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="2" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round"
+                            >
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg> 
+                    </motion.button>
+                </>
                 }
             </section>
         </div>
-  );
+    );
 };
 
 export default Chat;

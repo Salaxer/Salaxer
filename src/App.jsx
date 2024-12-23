@@ -64,7 +64,13 @@ function App() {
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
                       exit={{opacity: 0,  y: 20}}
-                      style={{ height: "calc(100vh - 70px)", width: "100%", paddingBottom: "3rem"}}
+                      style={{ 
+                        height: "calc(100vh - 70px)", 
+                        width: "100%", 
+                        paddingBottom: "3rem",
+                        display: 'flex',
+                        justifyContent: "center"
+                      }}
                     >
                       <item.element />
                     </motion.div>
