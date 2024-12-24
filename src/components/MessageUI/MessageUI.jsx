@@ -20,6 +20,7 @@ const MessageUI = ({ text }) => {
     // Procesar el texto dividiéndolo entre partes (texto normal y emojis)
     const parts = text.split(emojiRegex);
     const emojis = [...text.matchAll(emojiRegex)];
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
     return (
         <pre className="message-ui">
@@ -51,18 +52,21 @@ const MessageUI = ({ text }) => {
                                 </a>
                             );
                         }
-                        return <span key={index}>{word}</span>;
+                        return <>{word}</>;
                     });
                 }
 
                 return (
                     <React.Fragment key={i}>
                         {processedPart}
-                        {emojis[i] && (
-                            <span className="emoji" key={`emoji-${i}`}>
-                                {emojis[i][0]}
-                            </span>
-                        )}
+                        {(emojis[i] ) && (
+                            (
+                                isIOS ? 
+                                (<span style={{verticalAlign: "middle"}}>{emojis[i][0]}</span>)
+                                :
+                                (<span className="emoji" key={`emoji-${i}`}>{emojis[i][0]}</span>)
+                            )
+                        ) }
                     </React.Fragment>
                 );
             })}
