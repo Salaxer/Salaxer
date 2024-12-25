@@ -6,20 +6,20 @@ import './navMobile.css'
 
 const sidebar = {
     open: () => ({
-      clipPath: `circle(130vh at  259px 31px)`,
+      clipPath: `circle(100vh at  259px 31px)`,
       transition: {
         type: "spring",
-        stiffness: 20,
+        stiffness: 100,
         restDelta: 2
       }
     }),
     closed: {
       clipPath: `circle(20px at  259px 31px)`,
       transition: {
-        delay: 0.5,
+        delay: 1,
         type: "spring",
-        stiffness: 250,
-        damping: 25
+        stiffness: 111,
+        damping: 111
       }
     }
   };
@@ -35,7 +35,6 @@ const NavMobile = () =>{
       initial={false}
       animate={open ? "open" : "closed"}
       ref={containerRef}
-      custom={""}
     >
       <Navigation toggle={() => toggleOpen()} open={open}/>
       <motion.div className="backgroundNav" variants={sidebar} />

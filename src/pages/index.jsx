@@ -4,12 +4,13 @@ import Works from "./Works/Works";
 import NotFound from "./NotFound/NotFound";
 import Chat from "./Chat/chat";
 import Love from "./love/Love";
-
+import Auth from "./Auth/Auth";
 export {
     Contact,
     Home,
     Works,
     NotFound,
     Chat,
-    Love
+    Love,
+    Auth
 }

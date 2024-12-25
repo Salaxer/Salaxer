@@ -1,154 +1,125 @@
-import mqtt from 'mqtt';
-import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 import './chat.css'
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import { MessageUI, TextareaAutoSize } from '../../components';
-import { useNavigate } from 'react-router-dom';
-import { getPassword } from '../../api/mqtt';
+import { db } from '../../api/firebaseConfig';
+import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "firebase/firestore";
+import { AuthContext } from '../../state/AuthContext';
+import NotificationContext from '../../state/NotificationContext';
+import { add } from '../../utils/array';
+import { Helmet } from 'react-helmet-async';
+
+const chatId = "bUbprjBpmDP9XaqmB9GzGFt0Opi2_iWA64CUm2SZj0Meo2jS3hP6ScRU2"
 
 const Chat = () => {
-
-    const [client, setClient] = useState(null);
-    const [messages, setMessages] = useState([]);
-    
+    const { currentUser } = useContext(AuthContext);
+    const contextNotification = useContext(NotificationContext);
     const [newMessage, setNewMessage] = useState('');
-    const [user, setUser] = useState('');
-    const [password, setPassword] = useState('');
-    const [auth, setAuth] = useState(false);
-
-    const navigate = useNavigate();
-
-    const terminalRef = useRef(null)
-
-    const getMQTTPassword = async () => {
-        const { resolve } = await getPassword({password})
-        if (resolve) {
-            setMessages(resolve.messages)
-            connectToMqtt(resolve.MQTT)
-        }
-    }
-
-    const connectToMqtt = (MQTT) =>{
-        const mqttClient = mqtt.connect('wss://0070dab94b6e4df894cff18d9cd6aa81.s1.eu.hivemq.cloud:8884/mqtt', {
-            clientId: `client${(Math.floor(Math.random()*1000))}`,
-            username: 'Salaxer',
-            password: MQTT
-        });
-        setClient(mqttClient);
-        
-        mqttClient.on('connect', () => {
-            console.log('Conectado a MQTT');
-            mqttClient.subscribe('tu/tema', (err) => {
-                if (!err) {
-                    console.log('Suscrito al tema');
-                    setAuth(()=>true);
-                }
+    const handleSendMessage = async () => {
+        if (!newMessage.trim()) return;
+        const messagesRef = collection(db, "Chats", chatId, "Messages");
+        try {
+            setNewMessage("")
+            await addDoc(messagesRef, {
+                content: newMessage.trim(),
+                sender: currentUser.uid,
+                timestamp: serverTimestamp(),
             });
-        });
-        
-        mqttClient.on('message', (topic, message) => {
-            try {
-                const messageObject = JSON.parse(message.toString());
-                const sender = messageObject.sender;
-                const content = messageObject.content;
-                const date = messageObject.date;
-        
-                console.log('Mensaje:', content);
-                console.log('Enviado por:', sender);
-                if(content === "Te amo"){
-                    navigate("/iloveyou")
-                }
-        
-                setMessages((prevMessages) => [...prevMessages, { sender, content, date }]);
-                setTimeout(() => {
-                    scrollDown();
-                  }, 200);
-              } catch (e) {
-                console.error('Error al parsear el mensaje:', e);
-              }
-        });
-    }
-
-    const scrollDown = () =>{
-        if (terminalRef.current) {
-            terminalRef.current.scrollTo(0, terminalRef.current.scrollHeight)
+            console.log("Mensaje enviado");
+        } catch (error) {
+            contextNotification.add(add(contextNotification.list, {
+                id: Date.now(),
+                title: 'Error',
+                message: error,
+                life: 4000,
+            })); 
+            console.error("Error al enviar el mensaje:", error);
         }
-    }
+    };
 
-    const handleSendMessage = () => {
-        if (client) {
-            if (newMessage === "") {
-                return;
-            }
-            const messageObject = {
-                sender: user, // Cambia esto por la identificación del remitente
-                content: newMessage,
-                date: new Date()
-              };
-              console.log(messageObject);
-              
-            const messageString = JSON.stringify(messageObject);
-            client.publish('tu/tema', messageString, (err) => {
-                if (!err) {
-                    setNewMessage(''); // Limpia el campo después de enviar el mensaje
-                } else {
-                    console.error('Error al enviar el mensaje:', err);
-                }
+    const [messages, setMessages] = useState([]);
+    const [initialLoaded, setInitialLoaded] = useState(false);
+    const chatContainerRef = useRef(null);
+
+    // Cargar los últimos mensajes iniciales y configurar suscripción en tiempo real
+    useEffect(() => {
+        console.log("Chat ID:", chatId);
+        const messagesRef = collection(db, "Chats", chatId, "Messages");
+        const q = query(messagesRef, orderBy("timestamp", "asc"));
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const newMessages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            
+            // Actualizar el estado de los mensajes
+            setMessages(prevMessages => {
+                const messageMap = new Map(prevMessages.map(msg => [msg.id, msg]));
+                newMessages.forEach(msg => {
+                    messageMap.set(msg.id, msg); // Reemplaza si el `id` coincide
+                });
+                scrollToBottom();
+                return Array.from(messageMap.values()); // Retorna los mensajes actualizados
             });
+    
+            setInitialLoaded(true);
+        }, (error) => {
+            console.log(error);
+            contextNotification.add(add(contextNotification.list, {
+                id: Date.now(),
+                title: 'Error',
+                message: `Error al cargar mensajes recientes: ${error}`,
+                life: 4000,
+            }));
+        });
+            
+        return () => unsubscribe();
+    }, [contextNotification]);
+
+    // Detectar scroll hacia arriba
+    const handleScroll = (e) => {
+        if (e.target.scrollTop === 0) {
+        }
+    };
+
+    // Desplazar el scroll al fondo solo después de cargar los mensajes iniciales
+    useEffect(() => {
+        if (initialLoaded) {
+            scrollToBottom();
+        }
+    }, [initialLoaded]);
+
+    // Función para desplazar al fondo
+    const scrollToBottom = () => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
     };
 
     return (
-        <div className="container" style={{color: 'white'}}>
-            <section className='messages' ref={terminalRef}>
-                
-                {auth ? messages.map((msg, index) => {
-                    const fecha = new Date(msg.date)
-                    const opciones = {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: false // Ajusta a true si quieres formato de 12 horas
-                      };
-                    const horaFormateada = fecha.toLocaleTimeString('es-ES', opciones);
-                    return <div key={index} className={`message ${user === msg.sender ? "from" : "to"}`} >
-                        <p className='username'>{msg.sender}</p>
-                        <MessageUI text={msg.content}></MessageUI>
-                        <p className='datetime'>{horaFormateada}</p>
-                    </div>
-                }) : 
-                <>
-                     <motion.input
-                        id='inputNme'
-                        onChange={(e) => setUser(e.target.value)}
-                        value={user}
-                        className="inputEmail"
-                        whileHover={{ scale: 1.01 }}
-                        whileTap={{ scale: 0.99 }}
-                        placeholder={"Type your name"}>
-                    </motion.input>
-                    <motion.input
-                        id='inputName'
-                        type='password'
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                        className="inputEmail"
-                        whileHover={{ scale: 1.01 }}
-                        whileTap={{ scale: 0.99 }}
-                        placeholder={ "Type your password"}>
-                    </motion.input>
-                    <motion.button
-                        whileHover={{ scale: 1.01 }}
-                        whileTap={{ scale: 0.99 }}
-                        onClick={getMQTTPassword}
-                        className="linkToWorks buttonDetails"
-                        >Connect</motion.button>
-                </>
-                }
-            </section>
-            <section className='input'>
+        <>
+            <Helmet>
+                <title>Salaxer | Chat me</title>
+                <meta name="description" content="You can chat in real time with me here"/>
+                <meta name="twitter:title" content="Salaxer | Chat me"/>
+                <meta property="og:type" content="Contact me"/> 
+                <meta property="og:description" content="I am a Software Developer and currently on certification process of Mechatronics engineering, You can chat to me here"/>
+                <link rel="canonical" href="https://salaxer.com/"/>
+            </Helmet>
+            <div className="container" style={{color: 'white'}}>
+                <section 
+                    className='messages' 
+                    onScroll={handleScroll}
+                    ref={chatContainerRef} >
                 {
-                auth &&
-                <>
+                    messages.map((msg, i) => 
+                    <MessageUI 
+                        key={`${msg.id}${i}`} 
+                        text={msg.content} 
+                        isSameSender={currentUser.uid === msg.sender} 
+                        sender={msg.sender} 
+                        lastMessageWasFromSameUser={ (i !== 0) ? msg.sender === messages[i - 1].sender : false}
+                        timestamp={msg.timestamp} />) 
+                }
+                </section>
+                <section className='input'>
                     <TextareaAutoSize 
                     EnterDown={handleSendMessage} 
                     onChange={(t) => setNewMessage(t)}
@@ -174,11 +145,25 @@ const Chat = () => {
                             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                         </svg> 
                     </motion.button>
-                </>
-                }
-            </section>
-        </div>
+                </section>
+            </div>
+        </>
     );
 };
+
+// aver falta:
+
+// Guardar mensajes
+// Enviar stickers
+// Hacer reply
+// Poner leidos
+// Cambiar colores 
+// Editar los mensajes
+// Mandar imagenes
+// Mandar audios
+// barra de busqueda
+// ver galeria
+// Reacciones
+// Cuando alguien escribe
 
 export default Chat;

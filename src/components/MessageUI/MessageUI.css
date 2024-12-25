@@ -29,3 +29,51 @@
 .message-ui a:hover {
     text-decoration: underline;
 }
+
+.message{
+    display: flex;  
+    margin: 0.2rem 0;
+    position: relative;
+    flex-direction: column;
+    background-color: #505050;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    max-width: 80%; /* o calc(85% - 25px), según tu preferencia */
+    width: fit-content;
+}
+.message.to, .message.to .username{
+    color: #f8a59a;
+    left: 30px;
+    align-items: start;
+}
+.message.from, .message.from .username{
+    align-self: end;
+    color: #a4eef9;
+    right: 30px;
+}
+.message.from::before{
+    right: -7px;
+    transform: rotateZ(298deg);     
+}
+.message.to::before{
+    transform: rotateZ(60deg);     
+    left: -7px;                     /* Ajustar para posicionar horizontalmente */
+}
+.message.tic::before {
+    top: -6px;                       /* Ajustar para posicionar verticalmente */
+    z-index: 9;
+    content: '';                     /* Necesario para mostrar el pseudo-elemento */
+    position: absolute;              /* Posicionamiento absoluto relativo a la caja */
+    background-color: #505050;          /* Color de fondo del pseudo-elemento */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    clip-path: path('M 10 2 Q 11 6 20 20 Q 10 12.5 0 20 Q 7.5 7.5 10 0 Z');
+}
+.message .datetime{
+    color: #e2e2e2;
+    font-size: xx-small;
+    align-self: end;
+    padding-top: 0.1rem;
+}
+  

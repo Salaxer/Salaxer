@@ -1,0 +1,11 @@
+.container{
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    max-width: 900px;
+    font-weight: 400;
+    font-style: normal;
+    font-family:  Consolas, Liberation Mono, Menlo, monospace;
+  }
