@@ -75,8 +75,8 @@ function App() {
                           transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
                           exit={{opacity: 0,  y: 20}}
                           style={{ 
-                            height: "calc(100vh - 70px)", 
-                            width: "100%", 
+                            height: "100vh", 
+                            width: "100vw", 
                             overflow: "auto",
                             paddingBottom: "3rem",
                             display: 'flex',
@@ -95,7 +95,7 @@ function App() {
                         transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
                         exit={{opacity: 0,  y: 20}}
                         style={{ 
-                          height: "calc(100vh - 70px)", 
+                          height: "100vh", 
                           width: "100%", 
                           overflow: "auto",
                           paddingBottom: "3rem",

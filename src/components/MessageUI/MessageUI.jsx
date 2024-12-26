@@ -15,7 +15,7 @@ import formatTimestamp from '../../utils/formatTimestamp'
  * @returns JSX.Element
  */
 const MessageUI = (
-    { text, sender, isSameSender, timestamp, lastMessageWasFromSameUser }) => {
+    { text, sender, isSameSender, timestamp, lastMessageWasFromSameUser, id }) => {
     if (!text) {
         return ""
     }
@@ -32,7 +32,6 @@ const MessageUI = (
     const emojis = [...text.matchAll(emojiRegex)];
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
     
-    const fecha = new Date(timestamp?.toDate())
     const horaFormateada = timestamp ? formatTimestamp(timestamp?.toDate()) : "Enviando...";
 
     const handleDragEnd = (_event, info) => {
@@ -56,37 +55,35 @@ const MessageUI = (
                 <pre className="message-ui">
                     {parts.map((part, i) => {
                         let processedPart = [];
-                        if (part) {
-                            // Dividimos el texto en palabras para aplicar las detecciones
-                            const words = part.split(/(\s+)/); // Incluye separadores como espacios
-                            processedPart = words.map((word, index) => {
-                                if (word.match(urlRegex)) {
-                                    return (
-                                        <a key={word} href={word} target="_blank" rel="noopener noreferrer">
-                                            {word}
-                                        </a>
-                                    );
-                                }
-                                if (word.match(emailRegex)) {
-                                    return (
-                                        <a key={word} href={`mailto:${word}`}>
-                                            {word}
-                                        </a>
-                                    );
-                                }
-                                if (word.match(phoneRegex)) {
-                                    const cleanedNumber = word.replace(/[\s-]/g, "");
-                                    return (
-                                        <a key={word} href={`tel:${cleanedNumber}`}>
-                                            {word}
-                                        </a>
-                                    );
-                                }
-                                return <>{word}</>;
-                            });
-                        }
+                        // Dividimos el texto en palabras para aplicar las detecciones
+                        const words = part.split(/(\s+)/); // Incluye separadores como espacios
+                        processedPart = words.map((word, index) => {
+                            if (word.match(urlRegex)) {
+                                return (
+                                    <a key={`${id}_${word}_${index}`} href={word} target="_blank" rel="noopener noreferrer">
+                                        {word}
+                                    </a>
+                                );
+                            }
+                            if (word.match(emailRegex)) {
+                                return (
+                                    <a key={`${id}_${word}_${index}`} href={`mailto:${word}`}>
+                                        {word}
+                                    </a>
+                                );
+                            }
+                            if (word.match(phoneRegex)) {
+                                const cleanedNumber = word.replace(/[\s-]/g, "");
+                                return (
+                                    <a key={`${id}_${word}_${index}`} href={`tel:${cleanedNumber}`}>
+                                        {word}
+                                    </a>
+                                );
+                            }
+                            return <React.Fragment key={`${id}_${word}_${index}`}>{word}</React.Fragment>;
+                        });
                         return (
-                            <React.Fragment key={`${part}${i}${fecha}`}>
+                            <React.Fragment key={`${id}_${i}`}>
                                 {processedPart}
                                 {(emojis[i] ) && (
                                     (

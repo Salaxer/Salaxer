@@ -45,7 +45,7 @@ const Chat = () => {
     useEffect(() => {
         console.log("Chat ID:", chatId);
         const messagesRef = collection(db, "Chats", chatId, "Messages");
-        const q = query(messagesRef, orderBy("timestamp", "desc"), limit(70));
+        const q = query(messagesRef, orderBy("timestamp", "desc"), limit(20));
         const unsubscribe = onSnapshot(q, 
         (snapshot) => {
             const newMessages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -74,7 +74,8 @@ const Chat = () => {
 
     // Detectar scroll hacia arriba
     const handleScroll = (e) => {
-        if (e.target.scrollTop === 0) {
+        if (e.target.scrollToBottom === 0) {
+            console.log("User requested more data");
         }
     };
 
@@ -108,7 +109,8 @@ const Chat = () => {
                 {
                     messages.map((msg, i) => 
                     <MessageUI 
-                        key={`${msg.id}${i}`} 
+                        key={msg.id} 
+                        id={msg.id}
                         text={msg.content} 
                         isSameSender={currentUser.uid === msg.sender} 
                         sender={msg.sender} 

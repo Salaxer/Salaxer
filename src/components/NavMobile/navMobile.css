@@ -1,9 +1,18 @@
+.navMobile{
+  display: flex;
+  position: relative;
+  height: 50px;
+  width: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
 .backgroundNav {
-  position: fixed;
-  top: -3px;
+  position: absolute;
+  top: 0;
   right: 0;
-  bottom: 0;
   width: 300px;
+  height: 100vh;
   background: var(--backgroundText);
   z-index: 100;
 }
@@ -12,37 +21,34 @@
   outline: none;
   border: none;
   cursor: pointer;
-  position: fixed;
-  top: 7px;
-  right: 16px;
-  width: 50px;
-  height: 50px;
   border-radius: 50%;
   background: transparent;
   z-index: 100;
+  height: 25px;
+  width: 25px;
 }
   
-  .ulNavigation,
+.ulNavigation,
   .liNavigation {
     margin: 0;
     padding: 0;
-  }
+}
   
-  .ulNavigation {
+.ulNavigation {
     padding: 25px;
     position: fixed;
     z-index: 500;
     right: 40px;
     top: 100px;
     width: 230px;
-  }
-  .lia{
+}
+.lia{
     text-decoration: none;
     outline: 1px solid #03c4a100;
     transition: all 0.1s ease-in;
     border-radius: 2px;
-  }
-  .liNavigation .lia{
+}
+.liNavigation .lia{
     color: var(--textColor);
     font-size:2rem ;
     cursor: pointer;
@@ -50,32 +56,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .liNavigation {
+}
+.liNavigation {
     list-style: none;
     margin: 40px 0;
-  }
-  .liNavigation:first-child{
+}
+.liNavigation:first-child{
     margin-top: 0;
-  }
-  
-  .icon-placeholder {
+}  
+.icon-placeholder {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     flex: 40px 0;
     margin-right: 20px;
-  }
-  
-  .text-placeholder {
+}  
+.text-placeholder {
     border-radius: 5px;
     width: 200px;
     height: 20px;
     flex: 1;
-  }
-  
-  .refresh {
+}  
+.refresh {
     padding: 10px;
     position: absolute;
     background: rgba(0, 0, 0, 0.4);
@@ -88,5 +90,5 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-  }
+}
   

@@ -1,7 +1,7 @@
 .viewWorks{
     width: 100%;
     overflow: hidden;
-    padding: 0;
+    padding: 50px 0 10px 0;
     margin: 0;
     position: relative;
 }

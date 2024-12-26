@@ -13,17 +13,17 @@ const Path = props => (
 
 export const MenuToggle = ({ toggle }) => (
   <button id="toggleNavar" className="buttonNav" onClick={toggle}>
-    <svg width="23" height="23" viewBox="0 0 23 23">
+    <svg width="25" height="25" viewBox="0 0 24 24">
       <Path 
         stroke="var(--textColor)"
         variants={{
-          closed: { d: "M 2 2.5 L 20 2.5" },
-          open: { d: "M 3 16.5 L 17 2.5" }
+          closed: { d: "M 2 2 L 22 2" },
+          open: { d: "M 2 22 L 22 2" }
         }}
       />
       <Path
         stroke="var(--textColor)"
-        d="M 2 9.423 L 20 9.423"
+        d="M 2 12 L 22 12"
         variants={{
           closed: { opacity: 1 },
           open: { opacity: 0 }
@@ -33,8 +33,8 @@ export const MenuToggle = ({ toggle }) => (
       <Path
         stroke="var(--textColor)"
         variants={{
-          closed: { d: "M 2 16.346 L 20 16.346" },
-          open: { d: "M 3 2.5 L 17 16.346" }
+          closed: { d: "M 2 22 L 22 22" },
+          open: { d: "M 2 2 L 22 22" }
         }}
       />
     </svg>
