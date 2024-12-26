@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { MessageUI, TextareaAutoSize } from '../../components';
 import { db } from '../../api/firebaseConfig';
-import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, limit } from "firebase/firestore";
 import { AuthContext } from '../../state/AuthContext';
 import NotificationContext from '../../state/NotificationContext';
 import { add } from '../../utils/array';
@@ -15,6 +15,7 @@ const Chat = () => {
     const { currentUser } = useContext(AuthContext);
     const contextNotification = useContext(NotificationContext);
     const [newMessage, setNewMessage] = useState('');
+    // const [startAfter, setStartAfter] = useState(null);
     const handleSendMessage = async () => {
         if (!newMessage.trim()) return;
         const messagesRef = collection(db, "Chats", chatId, "Messages");
@@ -38,28 +39,27 @@ const Chat = () => {
     };
 
     const [messages, setMessages] = useState([]);
-    const [initialLoaded, setInitialLoaded] = useState(false);
     const chatContainerRef = useRef(null);
 
     // Cargar los últimos mensajes iniciales y configurar suscripción en tiempo real
     useEffect(() => {
         console.log("Chat ID:", chatId);
         const messagesRef = collection(db, "Chats", chatId, "Messages");
-        const q = query(messagesRef, orderBy("timestamp", "asc"));
-        const unsubscribe = onSnapshot(q, (snapshot) => {
+        const q = query(messagesRef, orderBy("timestamp", "desc"), limit(70));
+        const unsubscribe = onSnapshot(q, 
+        (snapshot) => {
             const newMessages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            
             // Actualizar el estado de los mensajes
             setMessages(prevMessages => {
-                const messageMap = new Map(prevMessages.map(msg => [msg.id, msg]));
-                newMessages.forEach(msg => {
-                    messageMap.set(msg.id, msg); // Reemplaza si el `id` coincide
+                const messageMap = new Map(newMessages.map(msg => [msg.id, msg])); // Prioriza los nuevos mensajes
+                prevMessages.forEach(msg => {
+                    if (!messageMap.has(msg.id)) {
+                        messageMap.set(msg.id, msg); // Agrega los mensajes existentes que no están en los nuevos
+                    }
                 });
-                scrollToBottom();
-                return Array.from(messageMap.values()); // Retorna los mensajes actualizados
+                return Array.from(messageMap.values()); // Retorna los mensajes con los nuevos al inicio
             });
-    
-            setInitialLoaded(true);
+
         }, (error) => {
             console.log(error);
             contextNotification.add(add(contextNotification.list, {
@@ -69,7 +69,6 @@ const Chat = () => {
                 life: 4000,
             }));
         });
-            
         return () => unsubscribe();
     }, [contextNotification]);
 
@@ -81,10 +80,8 @@ const Chat = () => {
 
     // Desplazar el scroll al fondo solo después de cargar los mensajes iniciales
     useEffect(() => {
-        if (initialLoaded) {
-            scrollToBottom();
-        }
-    }, [initialLoaded]);
+        scrollToBottom();
+    }, [messages]);
 
     // Función para desplazar al fondo
     const scrollToBottom = () => {
@@ -154,6 +151,7 @@ const Chat = () => {
 // aver falta:
 
 // Guardar mensajes
+// Hacer paginado
 // Enviar stickers
 // Hacer reply
 // Poner leidos

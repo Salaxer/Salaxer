@@ -1,10 +1,12 @@
 import React from "react";
 import './MessageUI.css';
 import { motion } from 'framer-motion';
+import formatTimestamp from '../../utils/formatTimestamp'
 
 /**
  * 
  * @param {Object} params
+ * @param {string} params.id
  * @param {string} params.text 
  * @param {boolean} params.isSameSender 
  * @param {string} params.sender
@@ -29,13 +31,9 @@ const MessageUI = (
     const parts = text.split(emojiRegex);
     const emojis = [...text.matchAll(emojiRegex)];
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
     const fecha = new Date(timestamp?.toDate())
-    const opciones = {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false // Ajusta a true si quieres formato de 12 horas
-    };
-    const horaFormateada = fecha.toLocaleTimeString('es-ES', opciones);
+    const horaFormateada = timestamp ? formatTimestamp(timestamp?.toDate()) : "Enviando...";
 
     const handleDragEnd = (_event, info) => {
         if (info.offset.x > 100) {
@@ -50,22 +48,10 @@ const MessageUI = (
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
         onDragEnd={handleDragEnd}
-        initial={{ 
-            x: isSameSender ? 50 : -50,
-            opacity: 0 
-        }}
-        animate={{ x: 0, opacity: 0.8 }}
-        exit={{ 
-            x: isSameSender ? -50 : 50,
-            opacity: 0 
-        }}
         transition={{ 
             duration: 0.8,
         }}
-        className={`message 
-        ${isSameSender ? "from" : "to"}
-        ${lastMessageWasFromSameUser ? "" : "tic"}
-        `} >
+        className={`message ${isSameSender ? "from" : "to"} ${lastMessageWasFromSameUser ? "" : "tic"}`} >
             <p className='username'>{sender}</p>
                 <pre className="message-ui">
                     {parts.map((part, i) => {
@@ -114,7 +100,7 @@ const MessageUI = (
                         );
                     })}
                 </pre>
-            <p className='datetime'>{timestamp ? horaFormateada : "Enviando..."}</p>
+            <p className='datetime'>{horaFormateada}</p>
         </motion.div>
     );
 };
