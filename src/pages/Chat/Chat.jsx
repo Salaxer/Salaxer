@@ -1,4 +1,3 @@
-import './Chat.css'
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Loader, MessageUI } from '../../components';
 import { db } from '../../api/firebaseConfig';
@@ -9,6 +8,7 @@ import { add } from '../../utils/array';
 import { Helmet } from 'react-helmet-async';
 import SendMessage from './SendMessage';
 import ScrollAndAlertMessages from './ScrollAndAlertMessages';
+import './Chat.css'
 
 const chatId = "bUbprjBpmDP9XaqmB9GzGFt0Opi2_iWA64CUm2SZj0Meo2jS3hP6ScRU2"
 
@@ -95,7 +95,8 @@ const Chat = () => {
           clearTimeout(timer);
           timer = setTimeout(() => func(...args), delay);
         };
-      };
+    };
+
     const onScrollUserController = (e) => {
         const { scrollTop, scrollHeight, clientHeight } = e.target;
         const isScrollingToTop = scrollHeight + scrollTop <= clientHeight + 50;
@@ -138,13 +139,13 @@ const Chat = () => {
                 {
                     messages.map((msg, i) => 
                     <MessageUI 
-                        key={msg.id} 
-                        id={msg.id}
-                        text={msg.content} 
-                        isSameSender={currentUser.uid === msg.sender} 
-                        sender={msg.sender} 
-                        nextMessageIsFromDiffUser={ (i !== messages.length - 1) ? msg.sender !== messages[i + 1].sender : true}
-                        timestamp={msg.timestamp} />) 
+                    key={msg.id} 
+                    id={msg.id}
+                    text={msg.content} 
+                    isSameSender={currentUser.uid === msg.sender} 
+                    sender={msg.sender} 
+                    nextMessageIsFromDiffUser={ (i !== messages.length - 1) ? msg.sender !== messages[i + 1].sender : true}
+                    timestamp={msg.timestamp} />) 
                 }
                 { loadingMoreMessages && 
                     <div className='messages_loader'>
