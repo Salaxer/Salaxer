@@ -25,7 +25,7 @@ const Chat = () => {
 
     // Configurando Query reusable
     const getQuery = (doc) => {
-        const messageLimit = 25;
+        const messageLimit = 40;
         const messagesRef = collection(db, "Chats", chatId, "Messages");
         if (doc) {
             return query(messagesRef, orderBy("timestamp", "desc"), limit(messageLimit), startAfter(doc));
@@ -50,9 +50,13 @@ const Chat = () => {
                 });
                 return Array.from(messageMap.values()); // Retorna los mensajes con los nuevos al inicio
             });
-            if (isUserReadingMessages) {
-                setNewMessagesWithoutRead(true);
-            }
+            setIsUserReadingMessages((current) => {
+                // Only checking current value of User
+                if (current) {
+                    setNewMessagesWithoutRead(true);
+                }
+                return current
+            })
         }, (error) => {
             contextNotification.add(add(contextNotification.list, {
                 id: Date.now(),
@@ -73,15 +77,18 @@ const Chat = () => {
         const newMessages = querySnapshot.docs.map(doc => ({ id: doc.id, doc, ...doc.data() }));
         setMessages(prevMessages => {
             const newArray = prevMessages.concat(newMessages)
-            setLoadingMoreMessages(false)
             return newArray;
         });
     }
     
     // Desplazar el scroll al fondo solo después de cargar los nuevos mensajes
     useEffect(() => {
-        const doc = messages[messages.length - 1]?.doc;
-        setStartAfterMessage(doc ? doc : null);
+        if (messages.length > 0) {
+            const doc = messages[messages.length - 1]?.doc;
+            setStartAfterMessage(doc ? doc : null);
+            console.log("last_Message: ", doc.data());
+            setLoadingMoreMessages(false)
+        }
         if (!isUserReadingMessages) {
             scrollToBottom();
         }
@@ -111,7 +118,7 @@ const Chat = () => {
             setNewMessagesWithoutRead(false)
         }
     }
-    const debouncedScroll = debounce(onScrollUserController, 200);
+    const debouncedScroll = debounce(onScrollUserController, 500);
 
     // Función para desplazar al fondo
     const scrollToBottom = () => {
