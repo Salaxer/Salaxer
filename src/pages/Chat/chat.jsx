@@ -1,54 +1,45 @@
-import './chat.css'
+import './Chat.css'
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { MessageUI, TextareaAutoSize } from '../../components';
+import { Loader, MessageUI } from '../../components';
 import { db } from '../../api/firebaseConfig';
-import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, limit } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, limit, startAfter, getDocs } from "firebase/firestore";
 import { AuthContext } from '../../state/AuthContext';
 import NotificationContext from '../../state/NotificationContext';
 import { add } from '../../utils/array';
 import { Helmet } from 'react-helmet-async';
+import SendMessage from './SendMessage';
+import ScrollAndAlertMessages from './ScrollAndAlertMessages';
 
 const chatId = "bUbprjBpmDP9XaqmB9GzGFt0Opi2_iWA64CUm2SZj0Meo2jS3hP6ScRU2"
 
 const Chat = () => {
     const { currentUser } = useContext(AuthContext);
-    const contextNotification = useContext(NotificationContext);
-    const [newMessage, setNewMessage] = useState('');
-    // const [startAfter, setStartAfter] = useState(null);
-    const handleSendMessage = async () => {
-        if (!newMessage.trim()) return;
-        const messagesRef = collection(db, "Chats", chatId, "Messages");
-        try {
-            setNewMessage("")
-            await addDoc(messagesRef, {
-                content: newMessage.trim(),
-                sender: currentUser.uid,
-                timestamp: serverTimestamp(),
-            });
-            console.log("Mensaje enviado");
-        } catch (error) {
-            contextNotification.add(add(contextNotification.list, {
-                id: Date.now(),
-                title: 'Error',
-                message: error,
-                life: 4000,
-            })); 
-            console.error("Error al enviar el mensaje:", error);
-        }
-    };
 
+    const contextNotification = useContext(NotificationContext);
+    const [startAfterMessage, setStartAfterMessage] = useState(null);
+    const [loadingMoreMessages, setLoadingMoreMessages] = useState(false)
+    const [isUserReadingMessages, setIsUserReadingMessages] = useState(false);
+    const [newMessagesWithoutRead, setNewMessagesWithoutRead] = useState(false);
     const [messages, setMessages] = useState([]);
     const chatContainerRef = useRef(null);
 
-    // Cargar los últimos mensajes iniciales y configurar suscripción en tiempo real
-    useEffect(() => {
-        console.log("Chat ID:", chatId);
+    // Configurando Query reusable
+    const getQuery = (doc) => {
+        const messageLimit = 25;
         const messagesRef = collection(db, "Chats", chatId, "Messages");
-        const q = query(messagesRef, orderBy("timestamp", "desc"), limit(20));
+        if (doc) {
+            return query(messagesRef, orderBy("timestamp", "desc"), limit(messageLimit), startAfter(doc));
+        }else{
+            return query(messagesRef, orderBy("timestamp", "desc"), limit(messageLimit));
+        }
+    };
+
+    // Cargar y configurar suscripción en tiempo real
+    useEffect(() => {
+        const q =  getQuery();
         const unsubscribe = onSnapshot(q, 
         (snapshot) => {
-            const newMessages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            const newMessages = snapshot.docs.map(doc => ({ id: doc.id, doc, ...doc.data() }));
             // Actualizar el estado de los mensajes
             setMessages(prevMessages => {
                 const messageMap = new Map(newMessages.map(msg => [msg.id, msg])); // Prioriza los nuevos mensajes
@@ -59,9 +50,10 @@ const Chat = () => {
                 });
                 return Array.from(messageMap.values()); // Retorna los mensajes con los nuevos al inicio
             });
-
+            if (isUserReadingMessages) {
+                setNewMessagesWithoutRead(true);
+            }
         }, (error) => {
-            console.log(error);
             contextNotification.add(add(contextNotification.list, {
                 id: Date.now(),
                 title: 'Error',
@@ -70,24 +62,61 @@ const Chat = () => {
             }));
         });
         return () => unsubscribe();
-    }, [contextNotification]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    // Detectar scroll hacia arriba
-    const handleScroll = (e) => {
-        if (e.target.scrollToBottom === 0) {
-            console.log("User requested more data");
-        }
-    };
-
-    // Desplazar el scroll al fondo solo después de cargar los mensajes iniciales
+    const getMoreMessages = async () => {
+        if (!startAfterMessage) return;
+        console.log("Getting more messages");
+        const q = getQuery(startAfterMessage)
+        const querySnapshot = await getDocs(q);
+        const newMessages = querySnapshot.docs.map(doc => ({ id: doc.id, doc, ...doc.data() }));
+        setMessages(prevMessages => {
+            const newArray = prevMessages.concat(newMessages)
+            setLoadingMoreMessages(false)
+            return newArray;
+        });
+    }
+    
+    // Desplazar el scroll al fondo solo después de cargar los nuevos mensajes
     useEffect(() => {
-        scrollToBottom();
+        const doc = messages[messages.length - 1]?.doc;
+        setStartAfterMessage(doc ? doc : null);
+        if (!isUserReadingMessages) {
+            scrollToBottom();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [messages]);
+
+    // Detectar scroll hacia arriba con un delay para no llamar la función varias veces
+    const debounce = (func, delay) => {
+        let timer;
+        return (...args) => {
+          clearTimeout(timer);
+          timer = setTimeout(() => func(...args), delay);
+        };
+      };
+    const onScrollUserController = (e) => {
+        const { scrollTop, scrollHeight, clientHeight } = e.target;
+        const isScrollingToTop = scrollHeight + scrollTop <= clientHeight + 50;
+        if (isScrollingToTop && !loadingMoreMessages) {
+            getMoreMessages();
+            setLoadingMoreMessages(true)
+        }
+        if (500 + scrollTop <= 0) {
+            setIsUserReadingMessages(true)
+        }else{
+            setIsUserReadingMessages(false)
+            setNewMessagesWithoutRead(false)
+        }
+    }
+    const debouncedScroll = debounce(onScrollUserController, 200);
 
     // Función para desplazar al fondo
     const scrollToBottom = () => {
         if (chatContainerRef.current) {
             chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+            setNewMessagesWithoutRead(false);
         }
     };
 
@@ -103,8 +132,8 @@ const Chat = () => {
             </Helmet>
             <div className="container" style={{color: 'white'}}>
                 <section 
-                    className='messages' 
-                    onScroll={handleScroll}
+                    className='messages'
+                    onScroll={debouncedScroll}
                     ref={chatContainerRef} >
                 {
                     messages.map((msg, i) => 
@@ -114,48 +143,32 @@ const Chat = () => {
                         text={msg.content} 
                         isSameSender={currentUser.uid === msg.sender} 
                         sender={msg.sender} 
-                        lastMessageWasFromSameUser={ (i !== 0) ? msg.sender === messages[i - 1].sender : false}
+                        nextMessageIsFromDiffUser={ (i !== messages.length - 1) ? msg.sender !== messages[i + 1].sender : true}
                         timestamp={msg.timestamp} />) 
                 }
+                { loadingMoreMessages && 
+                    <div className='messages_loader'>
+                        <Loader  background={"transparent"} position={"relative"} color={"white"}/>
+                    </div>
+                }
                 </section>
-                <section className='input'>
-                    <TextareaAutoSize 
-                    EnterDown={handleSendMessage} 
-                    onChange={(t) => setNewMessage(t)}
-                    value={newMessage}>
-                    </TextareaAutoSize>
-                    <motion.button
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
-                    onClick={handleSendMessage}
-                    className="send"
-                    >
-                        <svg 
-                            width="24" 
-                            height="24" 
-                            viewBox="0 0 24 24" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            strokeWidth="2" 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round"
-                            >
-                            <line x1="22" y1="2" x2="11" y2="13"></line>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                        </svg> 
-                    </motion.button>
-                </section>
+                <ScrollAndAlertMessages 
+                newMessage={newMessagesWithoutRead}
+                isScrolling={isUserReadingMessages} 
+                onClick={scrollToBottom}></ScrollAndAlertMessages>
+                <SendMessage chatId={chatId} currentUser={currentUser}/>
             </div>
         </>
     );
 };
 
+
 // aver falta:
 
-// Guardar mensajes
-// Hacer paginado
-// Enviar stickers
-// Hacer reply
+// Guardar mensajes ✔️
+// Hacer paginado ✔️
+// Hacer reply doing
+// Enviar stickers 
 // Poner leidos
 // Cambiar colores 
 // Editar los mensajes

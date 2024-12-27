@@ -32,7 +32,7 @@ const Auth = () => {
     };
 
     return (
-        <div className="container" style={{color: 'white'}}>
+        <div className="container-auth" style={{color: 'white'}}>
             <motion.input
             id='inputNme'
             onChange={(e) => setEmail(e.target.value)}

@@ -11,11 +11,11 @@ import formatTimestamp from '../../utils/formatTimestamp'
  * @param {boolean} params.isSameSender 
  * @param {string} params.sender
  * @param {string} params.timestamp
- * @param {boolean} params.lastMessageWasFromSameUser
+ * @param {boolean} params.nextMessageIsFromDiffUser
  * @returns JSX.Element
  */
 const MessageUI = (
-    { text, sender, isSameSender, timestamp, lastMessageWasFromSameUser, id }) => {
+    { text, sender, isSameSender, timestamp, nextMessageIsFromDiffUser, id }) => {
     if (!text) {
         return ""
     }
@@ -50,7 +50,7 @@ const MessageUI = (
         transition={{ 
             duration: 0.8,
         }}
-        className={`message ${isSameSender ? "from" : "to"} ${lastMessageWasFromSameUser ? "" : "tic"}`} >
+        className={`message ${isSameSender ? "from" : "to"} ${nextMessageIsFromDiffUser ? "otherUser" : ""}`} >
             <p className='username'>{sender}</p>
                 <pre className="message-ui">
                     {parts.map((part, i) => {

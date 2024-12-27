@@ -61,7 +61,7 @@
     transform: rotateZ(60deg);     
     left: -7px;                     /* Ajustar para posicionar horizontalmente */
 }
-.message.tic::before {
+.message.otherUser::before {
     top: -6px;                       /* Ajustar para posicionar verticalmente */
     z-index: 9;
     content: '';                     /* Necesario para mostrar el pseudo-elemento */
