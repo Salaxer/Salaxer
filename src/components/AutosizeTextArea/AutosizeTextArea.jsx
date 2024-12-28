@@ -7,7 +7,7 @@ const TextareaAutoSize = (
     { 
         placeholder = "Type a message", 
         onChange = (text) => {} ,
-        EnterDown = () => {},
+        EnterDown = (e) => {},
         value = ""
     }) => {
     const md = new MobileDetect(window.navigator.userAgent);
@@ -35,7 +35,7 @@ const TextareaAutoSize = (
         const trimmed = value.trim();
         if (event.key === 'Enter' && !event.shiftKey && trimmed !== "" && !isMobile) {
             event.preventDefault(); // Previene el salto de línea
-            EnterDown()
+            EnterDown(event)
         }
     };
 

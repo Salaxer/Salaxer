@@ -12,6 +12,7 @@ const SendMessage = ({ chatId, currentUser }) =>{
     const contextNotification = useContext(NotificationContext);
 
     const handleSendMessage = async (e) => {
+        e.preventDefault();
         if (!newMessage.trim()) return;
         const messagesRef = collection(db, "Chats", chatId, "Messages");
         try {

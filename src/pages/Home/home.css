@@ -42,7 +42,7 @@
     content: '';
     position: absolute;
     width: 100%;
-    height: 800%;
+    height: 1000%;
     background: conic-gradient(
          from 0deg,
          #ff6ec4,
@@ -150,6 +150,9 @@
     }
     .backgroundForText{
         width: 90%;
+    }
+    .backgroundForText::before {
+        height: calc(100vw - 20px);
     }
     .Name{
         font-size: 1.875rem;
