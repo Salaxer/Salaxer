@@ -56,14 +56,7 @@ function App() {
             <AnimatePresence mode="wait">
               <Routes location={location} key={location.pathname}>
                 <Route path='*' element={
-                  <motion.div 
-                  initial={{y: 20, opacity: 0}}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
-                    exit={{opacity: 0,  y: 20}}
-                    >
                     <NotFound />
-                  </motion.div>
                 } />  
                 {pages.map((item, index)=>{
                   return( item.protected ? 
@@ -72,13 +65,18 @@ function App() {
                         <motion.div 
                           initial={{y: 20, opacity: 0}}
                           animate={{ y: 0, opacity: 1 }}
-                          transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
-                          exit={{opacity: 0,  y: 20}}
+                          exit={{ y: 20, opacity: 0 }}
+                          transition={{ 
+                            type: "spring", 
+                            stiffness: 100, 
+                            delay: 0,
+                            duration: 0.8,
+                          }}
                           style={{ 
                             height: "100vh", 
                             width: "100vw", 
                             overflow: "auto",
-                            paddingBottom: "3rem",
+                            paddingBottom: `${location.pathname !== '/chat' && "3rem"}`,
                             display: 'flex',
                             justifyContent: "center"
                           }}
@@ -92,8 +90,13 @@ function App() {
                       <motion.div 
                         initial={{y: 20, opacity: 0}}
                         animate={{ y: 0, opacity: 1 }}
-                        transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
-                        exit={{opacity: 0,  y: 20}}
+                        exit={{ y: 20, opacity: 0 }}
+                        transition={{ 
+                          type: "spring", 
+                          stiffness: 100, 
+                          delay: 0.2,
+                          duration: 0.8,
+                        }}
                         style={{ 
                           height: "100vh", 
                           width: "100%", 

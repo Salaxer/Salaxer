@@ -25,35 +25,39 @@
 .backgroundForText{
     margin: 0 auto;
     width: 500px;
-    background-color: var(--backgroundText);
     height: 50px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--outlineColor);
     z-index: 99;
     position: relative;
     border-radius: 15px;
-    -webkit-filter: drop-shadow(0px 0px 1px rgba(239, 254, 255, 0.7));
-    filter: drop-shadow(0px 0px 1.5px rgba(210, 236, 238, 0.871));
+    -webkit-filter: drop-shadow(1px 1px 2px rgba(255, 110, 196, 0.5))
+    drop-shadow(-1px -1px 2px rgba(66, 230, 149, 0.5));
+    filter: drop-shadow(1px 1px 2px rgba(255, 110, 196, 0.5))
+    drop-shadow(-1px -1px 2px rgba(66, 230, 149, 0.5));
+    place-content: center;
+    overflow: hidden;
+    place-items: center;
 }
-
-.backgroundForText::after, .backgroundForText::before{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    content: "";
-    margin: -5px;
-    z-index: -10;
-    box-shadow: inset 0 0 0 3px;
-    animation: ledOver 8s linear infinite;
-}
-
 .backgroundForText::before {
-    color: #FD367E;
-    animation-delay: -4s;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 800%;
+    background: conic-gradient(
+         from 0deg,
+         #ff6ec4,
+         #7873f5,
+         #42e695,
+         #ff6ec4
+     );
+    animation: rotateRing 3s linear infinite;
+}
+.backgroundForText::after {
+    content: '';
+    position: absolute;
+    background: var(--backgroundText);
+    inset: 2px;
+    border-radius: 17px;
 }
 .Name{
     position: relative;
@@ -98,10 +102,6 @@
     padding-top: 1rem;
     font-size: bold;
 }
-/* .workDescription code{
-    font-style: italic;
-    color: rgb(172, 172, 172);
-} */
 .linkToWorks{
     background-color: #FD367E;
     border: none;
@@ -153,44 +153,5 @@
     }
     .Name{
         font-size: 1.875rem;
-    }
-}
-
-@keyframes ledOver {
-    0%, 100%{
-        clip: rect(0px, 510px, 3px, 407px);
-    }
-    8.33% {
-        clip: rect(0px, 400px, 3px, 300px);
-    }
-    16.66% {
-        clip: rect(0px, 300px, 3px, 200px);
-    }
-    25% {
-        clip: rect(0px, 200px, 3px, 100px);
-    }
-    33.33% {
-        clip: rect(0px, 100px, 3px, 0px);
-    }
-    41.66% {
-        clip: rect(0px, 3px, 60px, 0px);
-    }
-    50% {
-        clip: rect(57px, 100px, 60px, 0px);
-    }
-    58.33% {
-        clip: rect(57px, 200px, 60px, 100px);
-    }
-    66.66% {
-        clip: rect(57px, 300px, 60px, 200px);
-    }
-    75%{
-        clip: rect(57px, 400px, 60px, 300px);
-    }
-    83.33%{
-        clip: rect(57px, 510px, 60px, 400px);
-    }
-    91.66%{
-        clip: rect(0px, 510px, 60px, 507px);
     }
 }

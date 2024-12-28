@@ -60,7 +60,7 @@ const Home = () => {
           <div className="descriptionAboutMe">
             <h3 className="wordProfile" tabIndex={0}>Profile</h3>
             <p tabIndex={0} className="textForDescription" style={{textAlign: 'justify'}}>
-              I am a Software Developer and Mechatronics engineering from Mexico with a passion for building digital and physical services/stuff. I always find the way to solving real-life problems with code and my mind. I want collaborate with teams passionate to created innovative products.
+              I am a Software Developer and Mechatronics engineering from Mexico with a passion for building digital and physical services/stuff. I always find the way to solving real-life problems with code. I want collaborate with teams passionate to created innovative products.
               <br/>
               I am improving day by day because I've never stopped learning.
             </p>

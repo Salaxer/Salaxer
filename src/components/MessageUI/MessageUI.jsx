@@ -35,68 +35,67 @@ const MessageUI = (
     const horaFormateada = timestamp ? formatTimestamp(timestamp?.toDate()) : "Enviando...";
 
     const handleDragEnd = (_event, info) => {
+        console.log(_event);
         if (info.offset.x > 100) {
-            console.log("Lo mueve a la izquierda");
+            console.log("usuario quiere editar a la izquierda");
         }else if (info.offset.x < -100) {
-          console.log("Lo mueve a la derecha");
+          console.log("usuario quiere contestar");
         }
     };
 
     return (
         <motion.div 
         drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
+        dragConstraints={{ left: 0 ,right: 0 }}
+        dragElastic={0.5}
         onDragEnd={handleDragEnd}
-        transition={{ 
-            duration: 0.8,
-        }}
         className={`message ${isSameSender ? "from" : "to"} ${nextMessageIsFromDiffUser ? "otherUser" : ""}`} >
-            <p className='username'>{sender}</p>
-                <pre className="message-ui">
-                    {parts.map((part, i) => {
-                        let processedPart = [];
-                        // Dividimos el texto en palabras para aplicar las detecciones
-                        const words = part.split(/(\s+)/); // Incluye separadores como espacios
-                        processedPart = words.map((word, index) => {
-                            if (word.match(urlRegex)) {
-                                return (
-                                    <a key={`${id}_${word}_${index}`} href={word} target="_blank" rel="noopener noreferrer">
-                                        {word}
-                                    </a>
-                                );
-                            }
-                            if (word.match(emailRegex)) {
-                                return (
-                                    <a key={`${id}_${word}_${index}`} href={`mailto:${word}`}>
-                                        {word}
-                                    </a>
-                                );
-                            }
-                            if (word.match(phoneRegex)) {
-                                const cleanedNumber = word.replace(/[\s-]/g, "");
-                                return (
-                                    <a key={`${id}_${word}_${index}`} href={`tel:${cleanedNumber}`}>
-                                        {word}
-                                    </a>
-                                );
-                            }
-                            return <React.Fragment key={`${id}_${word}_${index}`}>{word}</React.Fragment>;
-                        });
-                        return (
-                            <React.Fragment key={`${id}_${i}`}>
-                                {processedPart}
-                                {(emojis[i] ) && (
-                                    (
-                                        isIOS ? 
-                                        (<span style={{verticalAlign: "middle"}}>{emojis[i][0]}</span>)
-                                        :
-                                        (<span className="emoji" key={`emoji-${i}`}>{emojis[i][0]}</span>)
-                                    )
-                                ) }
-                            </React.Fragment>
-                        );
-                    })}
-                </pre>
+            {nextMessageIsFromDiffUser && <p className='username'>{sender}</p>}
+            <pre className="message-ui">
+                {parts.map((part, i) => {
+                    let processedPart = [];
+                    // Dividimos el texto en palabras para aplicar las detecciones
+                    const words = part.split(/(\s+)/); // Incluye separadores como espacios
+                    processedPart = words.map((word, index) => {
+                        if (word.match(urlRegex)) {
+                            return (
+                                <a key={`${id}_${word}_${index}`} href={word} target="_blank" rel="noopener noreferrer">
+                                    {word}
+                                </a>
+                            );
+                        }
+                        if (word.match(emailRegex)) {
+                            return (
+                                <a key={`${id}_${word}_${index}`} href={`mailto:${word}`}>
+                                    {word}
+                                </a>
+                            );
+                        }
+                        if (word.match(phoneRegex)) {
+                            const cleanedNumber = word.replace(/[\s-]/g, "");
+                            return (
+                                <a key={`${id}_${word}_${index}`} href={`tel:${cleanedNumber}`}>
+                                    {word}
+                                </a>
+                            );
+                        }
+                        return <React.Fragment key={`${id}_${word}_${index}`}>{word}</React.Fragment>;
+                    });
+                    return (
+                        <React.Fragment key={`${id}_${i}`}>
+                            {processedPart}
+                            {(emojis[i] ) && (
+                                (
+                                    isIOS ? 
+                                    (<span style={{verticalAlign: "middle"}}>{emojis[i][0]}</span>)
+                                    :
+                                    (<span className="emoji" key={`emoji-${i}`}>{emojis[i][0]}</span>)
+                                )
+                            ) }
+                        </React.Fragment>
+                    );
+                })}
+            </pre>
             <p className='datetime'>{horaFormateada}</p>
         </motion.div>
     );

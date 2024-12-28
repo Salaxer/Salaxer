@@ -21,7 +21,7 @@ const Chat = () => {
     const [isUserReadingMessages, setIsUserReadingMessages] = useState(false);
     const [newMessagesWithoutRead, setNewMessagesWithoutRead] = useState(false);
     const [messages, setMessages] = useState([]);
-    const chatContainerRef = useRef(null);
+    const chatEndMessageRef = useRef(null);
 
     // Configurando Query reusable
     const getQuery = (doc) => {
@@ -52,7 +52,7 @@ const Chat = () => {
             });
             setIsUserReadingMessages((current) => {
                 // Only checking current value of User
-                if (current) {
+                if (current && currentUser.uid !== newMessages[0].sender) {
                     setNewMessagesWithoutRead(true);
                 }
                 return current
@@ -86,7 +86,6 @@ const Chat = () => {
         if (messages.length > 0) {
             const doc = messages[messages.length - 1]?.doc;
             setStartAfterMessage(doc ? doc : null);
-            console.log("last_Message: ", doc.data());
             setLoadingMoreMessages(false)
         }
         if (!isUserReadingMessages) {
@@ -111,7 +110,7 @@ const Chat = () => {
             getMoreMessages();
             setLoadingMoreMessages(true)
         }
-        if (500 + scrollTop <= 0) {
+        if (300 + scrollTop <= 0) {
             setIsUserReadingMessages(true)
         }else{
             setIsUserReadingMessages(false)
@@ -122,8 +121,8 @@ const Chat = () => {
 
     // Función para desplazar al fondo
     const scrollToBottom = () => {
-        if (chatContainerRef.current) {
-            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        if (chatEndMessageRef.current ) {
+            chatEndMessageRef.current.scrollIntoView({ behavior: "smooth" });
             setNewMessagesWithoutRead(false);
         }
     };
@@ -142,7 +141,8 @@ const Chat = () => {
                 <section 
                     className='messages'
                     onScroll={debouncedScroll}
-                    ref={chatContainerRef} >
+                >
+                    <div style={{height: 0}} ref={chatEndMessageRef}></div>
                 {
                     messages.map((msg, i) => 
                     <MessageUI 

@@ -1,16 +1,12 @@
 .AutoSizeTextArea{
     background-color: transparent;
-    padding: 1rem;
-    border: white 0.2rem solid;
+    border: white 2px solid;
     border-radius: 5px;
     width: 100%;
-    height: 40px;
     color: white;
     font-size: 1.5rem;
     outline-offset: 0.2rem;
-}
-.AutoSizeTextArea{
-    height: 100px;
+    padding: 0.8rem 1rem;
 }
 .AutoSizeTextArea:focus{
     outline: 2px solid var(--outlineColor);

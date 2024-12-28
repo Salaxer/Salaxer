@@ -11,7 +11,7 @@ const SendMessage = ({ chatId, currentUser }) =>{
     const [newMessage, setNewMessage] = useState('');
     const contextNotification = useContext(NotificationContext);
 
-    const handleSendMessage = async () => {
+    const handleSendMessage = async (e) => {
         if (!newMessage.trim()) return;
         const messagesRef = collection(db, "Chats", chatId, "Messages");
         try {
@@ -33,16 +33,22 @@ const SendMessage = ({ chatId, currentUser }) =>{
         }
     };
 
-    return <section className='input'>
+    const onChangeText = (e) =>{
+        e.preventDefault();
+        setNewMessage(e.target.value)
+    }
+
+    return <form onSubmit={handleSendMessage} className='input'>
         <TextareaAutoSize 
         EnterDown={handleSendMessage} 
-        onChange={(t) => setNewMessage(t)}
+        onChange={(t) => onChangeText(t)}
         value={newMessage}>
         </TextareaAutoSize>
         <motion.button
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
-        onClick={handleSendMessage}
+        onMouseDown={(e) => e.preventDefault()}
+        type='submit'
         className="send"
         >
              <svg
@@ -75,7 +81,7 @@ const SendMessage = ({ chatId, currentUser }) =>{
                 />
             </svg>
         </motion.button>
-    </section>
+    </form>
 }
 
 export default SendMessage

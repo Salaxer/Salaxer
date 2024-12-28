@@ -2,8 +2,8 @@
 .input {
     width: 100%;
     display: grid;
-    gap: 0.5rem;
-    padding: 15px 5px 10px 5px;
+    gap: 3px;
+    padding: 8px 6px 5px 6px;
     grid-template-columns: 1fr 40px;
   }
 .input .send {

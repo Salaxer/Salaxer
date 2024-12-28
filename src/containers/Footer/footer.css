@@ -8,8 +8,11 @@
     bottom: 0;
     backdrop-filter: blur(10px);
     z-index: 100;
+    font-size: 1.2rem;
+}
+.Footer.chatApp{
+    display: none;
 }
 .Footer__text{
     color: var(--textColor);
-    font-size: 1.2rem;
 }
